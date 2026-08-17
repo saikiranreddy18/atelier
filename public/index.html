@@ -214,6 +214,76 @@ h1,h2,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
   #printsheet img,#printsheet svg{max-width:280px;height:auto}
   #printsheet .mono{font-family:var(--mono)}
 }
+
+/* ============ premium: depth, 3D stage, choreography ============ */
+:root{
+  --ease-out:cubic-bezier(.16,.84,.44,1);
+  --ease-spring:cubic-bezier(.34,1.36,.42,1);
+  --t-fast:180ms; --t-mid:280ms; --t-slow:520ms;
+}
+/* the canvas becomes a lit table the garment stands on */
+.canvas{perspective:1500px;perspective-origin:50% 42%}
+.canvas::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 62% 52% at 50% 40%,transparent 45%,rgba(20,18,16,.10) 100%)}
+#garmentWrap{transform-style:preserve-3d;will-change:transform;
+  transition:transform var(--t-slow) var(--ease-out)}
+#garmentWrap.grabbing{transition:none;cursor:grabbing}
+#garment{cursor:grab;
+  filter:drop-shadow(0 2px 2px rgba(20,18,16,.10)) drop-shadow(0 16px 26px rgba(20,18,16,.20));
+  transition:filter var(--t-mid) var(--ease-out)}
+/* contact shadow on the table, reacting to the turn */
+#contact{position:absolute;left:50%;bottom:6%;width:58%;height:26px;pointer-events:none;
+  transform:translate(-50%,0) rotateX(74deg);transform-style:preserve-3d;
+  background:radial-gradient(ellipse at center,rgba(20,18,16,.34),transparent 68%);
+  filter:blur(7px);transition:transform var(--t-slow) var(--ease-out),opacity var(--t-mid)}
+.turnhint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);opacity:.75;pointer-events:none}
+/* zone lift when a material is over it */
+#garment .zone{transition:opacity var(--t-mid) var(--ease-out),filter var(--t-fast) var(--ease-out)}
+#garment .zone.hot{filter:brightness(1.06) drop-shadow(0 0 6px rgba(217,119,6,.55))}
+/* fabric settling into a zone — a fall, not a blink */
+#garment .zone.settle{animation:settle 420ms var(--ease-out)}
+@keyframes settle{
+  0%{opacity:.15;transform:translateY(-7px) scale(.985)}
+  60%{opacity:1}
+  100%{opacity:1;transform:none}
+}
+/* page arrival: content rises into place */
+.page.on{animation:pageIn 420ms var(--ease-out) both}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* specimen book: swatches deal out like cards */
+.swatch{animation:dealIn 360ms var(--ease-out) both;
+  transition:transform var(--t-mid) var(--ease-spring),box-shadow var(--t-mid) var(--ease-out),border-color var(--t-fast)}
+@keyframes dealIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+.swatch:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 12px 22px rgba(20,18,16,.16)}
+.swatch:active{transform:translateY(-2px) scale(.99)}
+/* version renders reveal in sequence */
+.vercard{animation:dealIn 420ms var(--ease-out) both;
+  transition:transform var(--t-mid) var(--ease-spring),box-shadow var(--t-mid),border-color var(--t-fast)}
+.vercard:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(20,18,16,.18)}
+.vercard.sel{transform:translateY(-2px)}
+.vercard img{transition:transform var(--t-slow) var(--ease-out)}
+.vercard:hover img{transform:scale(1.035)}
+/* the material sheet grows out of the card */
+.sheet{animation:scrimIn var(--t-mid) var(--ease-out) both;backdrop-filter:blur(3px)}
+@keyframes scrimIn{from{opacity:0}to{opacity:1}}
+.sheetcard{animation:sheetIn 380ms var(--ease-spring) both;
+  box-shadow:0 30px 70px rgba(20,18,16,.34)}
+@keyframes sheetIn{from{opacity:0;transform:translateY(16px) scale(.965)}to{opacity:1;transform:none}}
+/* buttons answer the press */
+.topbar button,.pagefoot .primary,.verbar .primary,.wide,#goBtn{
+  transition:background var(--t-fast),color var(--t-fast),border-color var(--t-fast),transform var(--t-fast) var(--ease-spring)}
+.pagefoot .primary:active,.verbar .primary:active,.wide:active,#goBtn:active{transform:scale(.975)}
+.stepper button{transition:background var(--t-fast),color var(--t-fast)}
+/* tray items arriving */
+#tray .swatch{animation:trayIn 340ms var(--ease-spring) both}
+@keyframes trayIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;
+    transition-duration:1ms!important;scroll-behavior:auto!important}
+  #garmentWrap{transform:none!important}
+}
 </style>
 </head>
 <body>
@@ -361,6 +431,8 @@ h1,h2,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
           <g id="zoneG"></g><g id="workG" class="construction"></g><g id="constructionG" class="construction"></g></svg>
         <div id="zoneTip"></div>
       </div>
+      <div id="contact"></div>
+      <span class="turnhint" id="turnHint">drag the garment to turn it</span>
       <p class="canvashint" id="canvasHint">Drag a material from the tray onto a zone. Only that zone re-renders.</p>
     </main>
 
@@ -687,7 +759,7 @@ function goPage(id){
   document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",p.id==="page-"+id));
   buildStepper();
   if(id==="materials")buildRail();
-  if(id==="workbench"){buildTray();drawGarment();renderSpec();critique()}
+  if(id==="workbench"){buildTray();drawGarment();renderSpec();critique();wireTurntable();applyTurn()}
   if(id==="versions"){$("#verPrompt").textContent=describeDesign()}
   if(id==="tryon"&&!$("#page-tryon #tryonBox"))$("#tryonHolder").appendChild($("#tryonBox"));
   window.scrollTo(0,0);
@@ -704,6 +776,7 @@ function buildTray(){
   const box=$("#tray"); box.innerHTML="";
   if(!state.tray.length){box.innerHTML=`<p style="font-size:12px;color:var(--muted)">Nothing in the tray yet — go back to the catalog and add a few materials.</p>`;return}
   state.tray.map(byId).filter(Boolean).forEach(m=>box.appendChild(swatchEl(m,true)));
+  stagger("#tray .swatch",40);
 }
 
 /* ================================ material detail ================================ */
@@ -769,6 +842,7 @@ function buildRail(){
   });
   const box=$("#swatches"); box.innerHTML="";
   CATALOG.filter(m=>m.cat===activeCat).forEach(m=>box.appendChild(swatchEl(m,false)));
+  stagger("#page-materials .swatch",26);
 }
 /* custom ghost that follows the cursor at .9 scale */
 const ghost=$("#ghost");
@@ -900,6 +974,61 @@ function suggestion(){
 }
 
 
+
+/* ================================ the turntable ================================
+   A garment on a table reads as an object, not a diagram. The form tilts toward
+   the cursor and can be grabbed and turned, with the contact shadow answering the
+   turn so the light stays believable. Tilt is suppressed while a material is in
+   flight, so a drop lands exactly where it looks like it will.               */
+const REDUCED=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const turn={y:0,x:0,drag:false,startX:0,base:0,dropping:false};
+function applyTurn(){
+  const wrap=$("#garmentWrap"), sh=$("#contact");
+  if(!wrap||REDUCED)return;
+  const y=turn.dropping?0:turn.y, x=turn.dropping?0:turn.x;
+  wrap.style.transform=`rotateY(${y.toFixed(2)}deg) rotateX(${x.toFixed(2)}deg)`;
+  if(sh){
+    const k=Math.cos(y*Math.PI/180);
+    sh.style.transform=`translate(-50%,0) rotateX(74deg) scaleX(${(0.72+0.28*k).toFixed(3)}) translateX(${(-y*0.5).toFixed(1)}px)`;
+    sh.style.opacity=(0.55+0.45*k).toFixed(2);
+  }
+}
+function wireTurntable(){
+  const pane=$("#canvasPane"), wrap=$("#garmentWrap");
+  if(!pane||!wrap||REDUCED)return;
+  pane.addEventListener("pointermove",e=>{
+    if(turn.drag||turn.dropping)return;
+    const r=pane.getBoundingClientRect();
+    turn.y=((e.clientX-r.left)/r.width-.5)*15;
+    turn.x=-(((e.clientY-r.top)/r.height)-.5)*7;
+    applyTurn();
+  });
+  pane.addEventListener("pointerleave",()=>{if(!turn.drag){turn.y=0;turn.x=0;applyTurn()}});
+  wrap.addEventListener("pointerdown",e=>{
+    if(e.target.closest(".zone")&&e.pointerType!=="mouse")return;
+    turn.drag=true; turn.startX=e.clientX; turn.base=turn.y;
+    wrap.classList.add("grabbing"); wrap.setPointerCapture?.(e.pointerId);
+  });
+  wrap.addEventListener("pointermove",e=>{
+    if(!turn.drag)return;
+    turn.y=Math.max(-34,Math.min(34,turn.base+(e.clientX-turn.startX)*0.28));
+    applyTurn();
+  });
+  const release=()=>{if(turn.drag){turn.drag=false;$("#garmentWrap").classList.remove("grabbing")}};
+  wrap.addEventListener("pointerup",release);
+  wrap.addEventListener("pointercancel",release);
+}
+/* a material in flight flattens the stage so the drop is honest */
+document.addEventListener("dragstart",()=>{turn.dropping=true;applyTurn()});
+document.addEventListener("dragend",()=>{turn.dropping=false;applyTurn()});
+
+/* choreography: deal items out rather than snapping them all in at once */
+function stagger(sel,step){
+  document.querySelectorAll(sel).forEach((el,i)=>{
+    el.style.animationDelay=(REDUCED?0:Math.min(i*step,420))+"ms";
+  });
+}
+
 /* ================================ versions (YouCam renders) ================================
    The workbench holds the design; this turns it into sentences the image engine
    can render, so what comes back is the composition the user built — not a fresh
@@ -941,6 +1070,7 @@ function renderVerGrid(){
       $("#chosenBox").innerHTML=`<img src="${v.url}" alt="Chosen version">`;};
     g.appendChild(el);
   });
+  stagger(".vercard",90);
 }
 async function generateVersions(){
   if(state.busy)return; state.busy=true;
