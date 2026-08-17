@@ -56,6 +56,57 @@ h1,h2,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
 .topbar button:hover{border-color:var(--ink)}
 .topbar .primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .topbar .primary:hover{background:var(--accent);border-color:var(--accent)}
+/* ---- stepper + pages ---- */
+.stepper{display:flex;gap:2px;align-items:center}
+.stepper button{border:none;background:transparent;padding:5px 10px;font-size:12px;color:var(--muted);border-radius:3px;white-space:nowrap}
+.stepper button .n{font-family:var(--mono);font-size:10.5px;opacity:.7;margin-right:5px}
+.stepper button.on{background:var(--ink);color:var(--paper)}
+.stepper button:disabled{opacity:.35;cursor:not-allowed}
+.stepper button:not(.on):not(:disabled):hover{background:#e6dccb;color:var(--ink)}
+@media(max-width:860px){.stepper button span.lb{display:none}.topbar .specline{display:none}}
+.page{display:none;flex:1;min-height:0}
+.page.on{display:block}
+.page.frame.on{display:grid}
+#page-silhouette,#page-materials{overflow-y:auto;padding:26px clamp(16px,4vw,48px) 40px;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(255,253,247,.9), transparent 70%)}
+.pagehead{max-width:70ch;margin-bottom:20px}
+.pagehead h2{font-size:clamp(26px,3.4vw,38px)}
+.pagehead p{font-size:13.5px;color:var(--muted);margin-top:4px}
+#page-materials .swatches{grid-template-columns:repeat(auto-fill,minmax(122px,1fr));gap:12px}
+#page-materials .swatch .tex{height:104px}
+#page-materials .swatch .nm{font-size:12px;height:auto;margin-bottom:2px}
+#page-silhouette #concepts{padding-top:10px}
+.pagefoot{position:sticky;bottom:0;margin-top:22px;padding:12px 0;background:linear-gradient(transparent,var(--paper) 28%);
+  display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.pagefoot .primary{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:3px;padding:11px 20px;font-weight:600}
+.pagefoot .primary:hover{background:var(--accent);border-color:var(--accent)}
+.linkbtn{border:none;background:none;color:var(--muted);font-size:12px;text-decoration:underline;padding:10px 0;margin-top:10px}
+.linkbtn:hover{color:var(--ink)}
+.swatch.inTray{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.swatch .badge{position:absolute;top:6px;right:6px;background:var(--accent);color:#fff;font-size:10px;
+  width:17px;height:17px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono)}
+/* ---- material detail sheet ---- */
+.sheet{position:fixed;inset:0;z-index:80;background:rgba(20,18,16,.55);display:grid;place-items:center;padding:20px}
+.sheetcard{background:var(--paper);border:1px solid var(--hair);border-radius:4px;max-width:820px;width:100%;
+  max-height:88vh;overflow:auto;padding:24px;position:relative}
+.sheetclose{position:absolute;top:10px;right:12px;border:none;background:none;font-size:24px;line-height:1;color:var(--muted)}
+.sheetclose:hover{color:var(--ink)}
+.sheetgrid{display:grid;grid-template-columns:300px 1fr;gap:24px}
+@media(max-width:700px){.sheetgrid{grid-template-columns:1fr}}
+.sheetgrid img{width:100%;border-radius:3px;border:1px solid var(--hair);aspect-ratio:1;object-fit:cover}
+.kick{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.sheetgrid h3{font-family:var(--serif);font-size:30px;letter-spacing:-.02em;margin:2px 0 4px}
+.usedfor{font-size:13.5px;color:var(--ink);margin-bottom:12px}
+.specs{width:100%;border-collapse:collapse;margin-bottom:14px}
+.specs td{padding:4px 0;border-bottom:1px solid var(--hair);font-size:12.5px}
+.specs td:first-child{color:var(--muted);width:44%}
+.specs td:last-child{font-family:var(--mono);text-align:right}
+.promptbox{border:1px solid var(--hair);background:var(--linen);border-radius:3px;padding:10px 12px;margin-bottom:12px}
+.promptbox p{font-size:11.5px;line-height:1.65;margin-top:5px;color:var(--ink)}
+.pairbox{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.7}
+.pairbox b{color:var(--ink);font-weight:500}
+.wide{width:100%;border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:3px;padding:11px;font-weight:600}
+.wide:hover{background:var(--accent);border-color:var(--accent)}
 .frame{display:grid;grid-template-columns:280px 1fr 340px;flex:1;min-height:0}
 @media(max-width:1050px){.frame{grid-template-columns:240px 1fr}.rightrail{grid-column:1/-1;border-top:1px solid var(--hair);border-left:none}}
 @media(max-width:760px){.frame{grid-template-columns:1fr}.rail{border-right:none;border-bottom:1px solid var(--hair);max-height:280px}}
@@ -178,26 +229,73 @@ h1,h2,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
 <section id="studio">
   <div class="topbar">
     <span class="mark">Atelier</span>
+    <nav class="stepper" id="stepper" aria-label="Stages"></nav>
     <span class="specline mono" id="specline"></span>
     <button id="undoBtn" title="Undo last material">Undo</button>
     <button id="clearBtn">Clear</button>
     <button class="primary" id="exportBtn">Export spec sheet</button>
   </div>
 
-  <div class="frame">
-    <!-- left: specimen book -->
-    <aside class="rail" aria-label="Material catalog">
+  <!-- ===== PAGE: silhouette ===== -->
+  <div class="page" id="page-silhouette">
+    <div class="pagehead">
+      <h2>Choose the construction</h2>
+      <p>Three studies drawn from your brief — panels, seams, neckline, hem and drape.</p>
+    </div>
+    <div id="concepts"></div>
+  </div>
+
+  <!-- ===== PAGE: materials ===== -->
+  <div class="page" id="page-materials">
+    <div class="pagehead">
       <h2>The catalog</h2>
-      <p class="sub">Every swatch AI-generated from its own texture prompt. Drag one onto a zone.<br><span class="mono" id="railNote" style="font-size:10.5px">loading…</span></p>
-      <div class="cats" id="cats"></div>
-      <div class="swatches" id="swatches"></div>
+      <p>Every swatch here was generated by AI from its own texture prompt — open one to read the exact prompt it was made from. Add what you like to the tray; you'll pin them to the garment next.
+      <br><span class="mono" id="railNote">loading…</span></p>
+    </div>
+    <div class="cats" id="cats"></div>
+    <div class="swatches" id="swatches"></div>
+    <div class="pagefoot">
+      <span class="mono" id="trayCount">tray empty</span>
+      <button class="primary" id="toWorkbench">Take the tray to the workbench →</button>
+    </div>
+  </div>
+
+  <!-- ===== material detail ===== -->
+  <div id="sheet" class="sheet hide" role="dialog" aria-modal="true" aria-label="Material detail">
+    <div class="sheetcard">
+      <button class="sheetclose" id="sheetClose" aria-label="Close">×</button>
+      <div class="sheetgrid">
+        <img id="sheetImg" alt="">
+        <div>
+          <span class="kick" id="sheetCat"></span>
+          <h3 id="sheetName"></h3>
+          <p class="usedfor" id="sheetUsed"></p>
+          <table class="specs" id="sheetSpecs"></table>
+          <div class="promptbox">
+            <span class="kick">The prompt this image was generated from</span>
+            <p class="mono" id="sheetPrompt"></p>
+          </div>
+          <div class="pairbox" id="sheetPairs"></div>
+          <button class="primary wide" id="sheetAdd">Add to tray</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PAGE: workbench ===== -->
+  <div class="page frame" id="page-workbench">
+    <!-- left: the tray you filled -->
+    <aside class="rail" aria-label="Your tray">
+      <h2>Your tray</h2>
+      <p class="sub">Drag these onto a zone of the garment.</p>
+      <div class="swatches" id="tray"></div>
+      <button class="linkbtn" id="backToCatalog">← back to the catalog</button>
     </aside>
 
     <!-- center: canvas -->
     <main class="canvas" id="canvasPane">
-      <span class="stagelbl" id="stageLbl">Stage 2 — choose a silhouette</span>
-      <div id="concepts"></div>
-      <div id="garmentWrap" class="hide">
+      <span class="stagelbl" id="stageLbl">The workbench</span>
+      <div id="garmentWrap">
         <svg id="garment" viewBox="0 0 300 470" aria-label="Garment canvas with droppable zones">
           <defs id="patDefs">
             <linearGradient id="fold" x1="0" y1="0" x2="1" y2="0">
@@ -212,7 +310,7 @@ h1,h2,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
           <g id="zoneG"></g><g id="constructionG" class="construction"></g></svg>
         <div id="zoneTip"></div>
       </div>
-      <p class="canvashint" id="canvasHint">Three construction studies, drawn from your brief. Pick one to take to the workbench.</p>
+      <p class="canvashint" id="canvasHint">Drag a material from the tray onto a zone. Only that zone re-renders.</p>
     </main>
 
     <!-- right: co-designer + spec -->
@@ -354,7 +452,7 @@ const SILHOUETTES=[
 const CONSTRUCTION="M112 199 L188 199 M132 101 C130 140 130 170 131 199 M168 101 C170 140 170 170 169 199";
 
 /* ================================ state ================================ */
-const state={spec:null,budget:null,silhouette:null,zones:{},history:[],versions:[],person:null,busy:false};
+const state={spec:null,budget:null,silhouette:null,zones:{},history:[],versions:[],person:null,busy:false,tray:[],page:"silhouette"};
 const $=s=>document.querySelector(s);
 
 /* ================================ stage 1 ================================ */
@@ -406,6 +504,7 @@ function enterStudio(){
     el.onclick=()=>chooseSilhouette(sil);
     box.appendChild(el);
   });
+  buildStepper(); goPage("silhouette");
   loadCatalog().then(j=>{
     buildRail();
     const gen=j.materials.filter(m=>m.swatch).length;
@@ -424,11 +523,7 @@ function conceptSVG(sil){
 }
 function chooseSilhouette(sil){
   state.silhouette=sil;
-  $("#concepts").classList.add("hide");
-  $("#garmentWrap").classList.remove("hide");
-  $("#stageLbl").textContent="Stage 3 — the material workbench";
-  $("#canvasHint").textContent="Drag materials from the catalog onto a zone. The zone re-renders; everything else stays locked.";
-  drawGarment(); renderSpec();
+  goPage("materials");
 }
 function zonePath(z){
   if(z==="bodice")return BODICE;
@@ -477,8 +572,94 @@ function wireZones(){
   });
 }
 
+/* ================================ pages ================================
+   Splitting the stages into their own screens only works because of the tray:
+   drag-and-drop needs a source and the garment on screen at once, so the
+   catalog page fills the tray and the workbench drags from that.            */
+const PAGES=[["silhouette","Construction"],["materials","Catalog"],["workbench","Workbench"]];
+function buildStepper(){
+  const s=$("#stepper"); s.innerHTML="";
+  PAGES.forEach(([id,label],i)=>{
+    const b=document.createElement("button");
+    b.innerHTML=`<span class="n">${i+1}</span><span class="lb">${label}</span>`;
+    b.className=state.page===id?"on":"";
+    b.disabled=(id!=="silhouette"&&!state.silhouette);
+    b.onclick=()=>goPage(id);
+    s.appendChild(b);
+  });
+}
+function goPage(id){
+  state.page=id;
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",p.id==="page-"+id));
+  buildStepper();
+  if(id==="materials")buildRail();
+  if(id==="workbench"){buildTray();drawGarment();renderSpec();critique()}
+  window.scrollTo(0,0);
+}
+
+/* ================================ the tray ================================ */
+function inTray(id){return state.tray.includes(id)}
+function toggleTray(id){
+  state.tray=inTray(id)?state.tray.filter(x=>x!==id):[...state.tray,id];
+  $("#trayCount").textContent=state.tray.length?`${state.tray.length} in tray`:"tray empty";
+  buildRail(); if(state.page==="workbench")buildTray();
+}
+function buildTray(){
+  const box=$("#tray"); box.innerHTML="";
+  if(!state.tray.length){box.innerHTML=`<p style="font-size:12px;color:var(--muted)">Nothing in the tray yet — go back to the catalog and add a few materials.</p>`;return}
+  state.tray.map(byId).filter(Boolean).forEach(m=>box.appendChild(swatchEl(m,true)));
+}
+
+/* ================================ material detail ================================ */
+let sheetMat=null;
+function openSheet(m){
+  sheetMat=m;
+  $("#sheetImg").src=m.swatch||m.thumb||""; $("#sheetImg").alt=`AI-generated swatch — ${m.name}`;
+  $("#sheetCat").textContent=`${m.category} · ${m.subcategory} · ${m.region}`;
+  $("#sheetName").textContent=m.name;
+  $("#sheetUsed").textContent=m.usedFor?`Used for ${m.usedFor}.`:"";
+  const row=(k,v)=>v!==""&&v!=null?`<tr><td>${k}</td><td>${v}</td></tr>`:"";
+  $("#sheetSpecs").innerHTML=
+    row("Price",`₹${m.price}${m.cat==="fabric"||m.cat==="trim"?" / m":""}`)+
+    row("Minimum",`${m.minMeterage} ${m.cat==="fabric"||m.cat==="trim"?"m":"pack"}`)+
+    (m.gsm?row("Weight",`${m.gsm} gsm`):"")+
+    (m.drape?row("Drape",`${m.drape}/5 · ${drapeWord(m.drape)}`):"")+
+    row("Sheen",`${m.sheen}/5`)+row("Opacity",`${m.opacity}/5`)+
+    row("Season",(m.seasons||[]).join(", "))+row("Occasion",(m.occasions||[]).join(", "));
+  $("#sheetPrompt").textContent=m.texture_prompt||"—";
+  const names=ids=>(ids||[]).map(nameOf).slice(0,4).join(", ");
+  $("#sheetPairs").innerHTML=
+    (m.pairsWith?.length?`<div><b>Pairs with</b> ${names(m.pairsWith)}</div>`:"")+
+    (m.avoidWith?.length?`<div><b>Fights</b> ${names(m.avoidWith)} <span style="opacity:.75">— at a shared seam</span></div>`:"");
+  $("#sheetAdd").textContent=inTray(m.id)?"Remove from tray":"Add to tray";
+  $("#sheet").classList.remove("hide");
+}
+$("#sheetClose").onclick=()=>$("#sheet").classList.add("hide");
+$("#sheet").onclick=e=>{if(e.target.id==="sheet")$("#sheet").classList.add("hide")};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#sheet").classList.add("hide")});
+$("#sheetAdd").onclick=()=>{if(sheetMat){toggleTray(sheetMat.id);$("#sheetAdd").textContent=inTray(sheetMat.id)?"Remove from tray":"Add to tray"}};
+$("#toWorkbench").onclick=()=>goPage("workbench");
+$("#backToCatalog").onclick=()=>goPage("materials");
+
 /* ================================ rail + drag ================================ */
 let activeCat="fabric";
+/* one swatch element, used by both the catalog grid and the tray */
+function swatchEl(m,draggableOnly){
+  const el=document.createElement("div"); el.className="swatch"+(inTray(m.id)?" inTray":""); el.draggable=true; el.dataset.id=m.id;
+  const tex=m.thumb?`background-image:url(${m.thumb});background-size:cover;background-position:center`:texCSS(m);
+  el.innerHTML=`<div class="tex" style="${tex}"></div><div class="nm">${m.name}</div>
+    <div class="pr">₹${m.price}${m.cat==="fabric"||m.cat==="trim"?"/m":""}</div>
+    ${inTray(m.id)&&!draggableOnly?'<span class="badge">✓</span>':""}
+    ${draggableOnly?"":`<div class="meta">${m.gsm?`${m.gsm} gsm · ${drapeWord(m.drape)} drape<br>`:""}<b>${m.usedFor}</b><br>${m.region} — click to open</div>`}`;
+  el.addEventListener("dragstart",e=>{
+    e.dataTransfer.setData("text/plain",m.id);
+    const img=new Image(); img.src="data:image/gif;base64,R0lGODlhAQABAAAAACw="; e.dataTransfer.setDragImage(img,0,0);
+    ghostOn(m);
+  });
+  el.addEventListener("dragend",ghostOff);
+  if(!draggableOnly)el.addEventListener("click",()=>openSheet(m));
+  return el;
+}
 function buildRail(){
   const cats=$("#cats"); cats.innerHTML="";
   CATS.forEach(([id,label])=>{
@@ -486,20 +667,7 @@ function buildRail(){
     b.onclick=()=>{activeCat=id;buildRail()}; cats.appendChild(b);
   });
   const box=$("#swatches"); box.innerHTML="";
-  CATALOG.filter(m=>m.cat===activeCat).forEach(m=>{
-    const el=document.createElement("div"); el.className="swatch"; el.draggable=true; el.dataset.id=m.id;
-    const tex=m.thumb?`background-image:url(${m.thumb});background-size:cover;background-position:center`:texCSS(m);
-    el.innerHTML=`<div class="tex" style="${tex}"></div><div class="nm">${m.name}</div>
-      <div class="pr">₹${m.price}${m.cat==="fabric"||m.cat==="trim"?"/m":""}</div>
-      <div class="meta">${m.gsm?`${m.gsm} gsm · ${drapeWord(m.drape)} drape<br>`:""}<b>${m.usedFor}</b><br>${m.region}</div>`;
-    el.addEventListener("dragstart",e=>{
-      e.dataTransfer.setData("text/plain",m.id);
-      const img=new Image(); img.src="data:image/gif;base64,R0lGODlhAQABAAAAACw="; e.dataTransfer.setDragImage(img,0,0);
-      ghostOn(m);
-    });
-    el.addEventListener("dragend",ghostOff);
-    box.appendChild(el);
-  });
+  CATALOG.filter(m=>m.cat===activeCat).forEach(m=>box.appendChild(swatchEl(m,false)));
 }
 /* custom ghost that follows the cursor at .9 scale */
 const ghost=$("#ghost");
