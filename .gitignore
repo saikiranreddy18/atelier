@@ -1,0 +1,9 @@
+node_modules/
+.env.local
+.env*.local
+server/cache.json
+public/renders/*
+!public/renders/.gitkeep
+credit-ledger.jsonl
+*.log
+.DS_Store

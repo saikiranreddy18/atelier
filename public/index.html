@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atelier — the garment workbench</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F7F3EC; --ink:#141210; --linen:#EDE6DA; --hair:#DDD3C4;
+  --accent:#D97706; --muted:#6f6659; --ok:#2d6a4f; --bad:#9b2c2c;
+  --serif:"Instrument Serif",Georgia,serif; --sans:Inter,system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0}
+body{
+  font:14px/1.6 var(--sans); color:var(--ink); background:var(--paper); min-height:100dvh;
+  background-image:radial-gradient(rgba(20,18,16,.028) 1px, transparent 1.2px);
+  background-size:5px 5px;
+}
+button{font:inherit;cursor:pointer;color:inherit}
+h1,h2,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:12.5px}
+.hairline{border:none;border-top:1px solid var(--hair)}
+.hide{display:none!important}
+::selection{background:#f3ddc0}
+
+/* ============ stage 1 — brief ============ */
+#stage1{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:28px}
+#stage1 .mark{font-family:var(--serif);font-size:15px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+#stage1 h1{font-size:clamp(34px,6vw,64px);text-align:center;max-width:17ch;line-height:1.12}
+#stage1 h1 i{color:var(--accent)}
+.briefbox{width:min(680px,94vw);border:1px solid var(--hair);background:#fffdf9;border-radius:3px;padding:6px 6px 6px 18px;display:flex;align-items:center;gap:10px}
+.briefbox:focus-within{border-color:var(--ink)}
+#brief{flex:1;border:none;outline:none;background:none;font:16px/1.5 var(--sans);color:var(--ink);padding:12px 0;resize:none;height:52px}
+#voiceBtn{width:44px;height:44px;border:1px solid var(--hair);border-radius:3px;background:var(--linen);display:grid;place-items:center}
+#voiceBtn.rec{border-color:var(--bad);color:var(--bad)}
+#voiceBtn svg{width:18px;height:18px}
+#langSel{border:1px solid var(--hair);background:var(--linen);border-radius:3px;font:12px var(--sans);padding:4px;height:44px}
+#goBtn{height:44px;padding:0 22px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:3px;font-weight:600}
+#goBtn:hover{background:var(--accent);border-color:var(--accent)}
+.chiprow{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:680px}
+.chiprow .lbl{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);width:100%;text-align:center;margin-top:6px}
+.chip{border:1px solid var(--hair);background:transparent;border-radius:3px;padding:5px 12px;font-size:12.5px;color:var(--muted)}
+.chip.on{border-color:var(--accent);color:var(--ink);background:#fdf3e3}
+#parserNote{font-size:12px;color:var(--muted)}
+
+/* ============ studio frame ============ */
+#studio{display:none;min-height:100dvh;flex-direction:column}
+#studio.open{display:flex}
+.topbar{display:flex;align-items:center;gap:16px;padding:10px 18px;border-bottom:1px solid var(--hair);background:var(--paper);position:sticky;top:0;z-index:50}
+.topbar .mark{font-family:var(--serif);font-size:17px}
+.topbar .specline{font-size:12px;color:var(--muted);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar button{border:1px solid var(--hair);background:transparent;border-radius:3px;padding:6px 12px;font-size:12.5px}
+.topbar button:hover{border-color:var(--ink)}
+.topbar .primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.topbar .primary:hover{background:var(--accent);border-color:var(--accent)}
+.frame{display:grid;grid-template-columns:280px 1fr 340px;flex:1;min-height:0}
+@media(max-width:1050px){.frame{grid-template-columns:240px 1fr}.rightrail{grid-column:1/-1;border-top:1px solid var(--hair);border-left:none}}
+@media(max-width:760px){.frame{grid-template-columns:1fr}.rail{border-right:none;border-bottom:1px solid var(--hair);max-height:280px}}
+
+/* ============ left rail — specimen book ============ */
+.rail{border-right:1px solid var(--hair);background:var(--linen);overflow-y:auto;padding:14px}
+.rail h2{font-size:20px;margin-bottom:2px}
+.rail .sub{font-size:11.5px;color:var(--muted);margin-bottom:10px}
+.cats{display:flex;gap:2px;margin-bottom:12px;border:1px solid var(--hair);border-radius:3px;overflow:hidden}
+.cats button{flex:1;border:none;background:transparent;padding:7px 2px;font-size:11px;letter-spacing:.04em}
+.cats button.on{background:var(--ink);color:var(--paper)}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px}
+.swatch{border:1px solid var(--hair);border-radius:3px;background:#fffdf9;padding:4px;cursor:grab;transition:transform .2s ease;position:relative}
+.swatch:hover{transform:translateY(-3px);border-color:var(--ink);z-index:2}
+.swatch:active{cursor:grabbing}
+.swatch .tex{height:52px;border-radius:2px;border:1px solid rgba(20,18,16,.12)}
+.swatch .nm{font-size:10.5px;line-height:1.25;margin-top:4px;height:26px;overflow:hidden}
+.swatch .pr{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.swatch .meta{display:none;position:absolute;left:0;right:0;top:calc(100% - 1px);background:var(--ink);color:var(--paper);font-size:10px;padding:5px 7px;border-radius:0 0 3px 3px;z-index:5;line-height:1.5}
+.swatch:hover .meta{display:block}
+
+/* ============ center — canvas ============ */
+.canvas{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;overflow:hidden;
+  background:radial-gradient(ellipse 70% 60% at 50% 42%, rgba(255,253,247,.9), rgba(237,230,218,.35) 75%, rgba(221,211,196,.5))}
+.canvas .stagelbl{position:absolute;top:14px;left:18px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+#concepts{display:flex;gap:26px;flex-wrap:wrap;justify-content:center}
+.concept{border:1px solid var(--hair);background:#fffdf9;border-radius:3px;padding:14px 14px 10px;text-align:center;cursor:pointer;transition:border-color .2s}
+.concept:hover{border-color:var(--accent)}
+.concept svg{width:170px;height:auto}
+.concept .cn{font-family:var(--serif);font-size:17px;margin-top:6px}
+.concept .cd{font-size:11px;color:var(--muted)}
+#garmentWrap{position:relative}
+#garment{width:min(380px,80vw);height:auto;filter:drop-shadow(0 14px 22px rgba(20,18,16,.14))}
+#garment .zone{cursor:pointer;transition:opacity .3s}
+#garment .zone.hot{stroke:var(--accent)!important;stroke-width:2.5!important}
+#garment .zone.settle{animation:settle .3s ease-out}
+@keyframes settle{0%{opacity:.25;transform:scale(.985)}100%{opacity:1;transform:scale(1)}}
+#garment .construction{pointer-events:none}
+#zoneTip{position:absolute;pointer-events:none;background:var(--ink);color:var(--paper);font-size:11px;padding:3px 9px;border-radius:2px;transform:translate(-50%,-130%);white-space:nowrap;display:none;z-index:6}
+.canvashint{margin-top:12px;font-size:12px;color:var(--muted);text-align:center}
+/* weave shimmer for genuine waits */
+.weave{width:200px;height:8px;margin:10px auto 0;border-radius:2px;background:repeating-linear-gradient(90deg,var(--hair) 0 6px,#fffdf9 6px 12px);background-size:200% 100%;animation:weave 1.1s linear infinite}
+@keyframes weave{to{background-position:-24px 0}}
+
+/* ============ right rail — co-designer + spec ============ */
+.rightrail{border-left:1px solid var(--hair);background:var(--linen);overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:16px}
+.panelbox{border:1px solid var(--hair);background:#fffdf9;border-radius:3px;padding:12px 14px}
+.panelbox h3{font-family:var(--serif);font-size:17px;margin-bottom:6px}
+#critique{font-size:12.5px;display:flex;flex-direction:column;gap:8px}
+#critique .note{border-left:2px solid var(--hair);padding-left:9px;color:var(--muted)}
+#critique .note.warn{border-color:var(--accent);color:var(--ink)}
+#critique .note.bad{border-color:var(--bad);color:var(--bad)}
+#specsheet table{width:100%;border-collapse:collapse}
+#specsheet td{padding:4px 0;border-bottom:1px solid var(--hair);vertical-align:top;font-size:12px}
+#specsheet td:last-child{text-align:right;font-family:var(--mono);white-space:nowrap}
+#specsheet .zn{color:var(--muted);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+#totalrow{display:flex;justify-content:space-between;padding-top:8px;font-weight:600}
+#totalrow span:last-child{font-family:var(--mono);font-size:15px}
+.budgetflag{font-size:11px;color:var(--bad)}
+.histbtns{display:flex;gap:6px;flex-wrap:wrap}
+.histbtns button{border:1px solid var(--hair);background:transparent;border-radius:3px;padding:4px 10px;font-size:11.5px}
+.histbtns button:hover{border-color:var(--ink)}
+/* try-on */
+#tryonBox .drop{border:1px dashed var(--hair);border-radius:3px;min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;color:var(--muted);position:relative;overflow:hidden;background:#fffdf9}
+#tryonBox .drop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#tryonBox .drop.over{border-color:var(--accent)}
+#tryonBox .row{display:flex;gap:6px;margin-top:8px}
+#tryonBox .row :is(button,label){flex:1;border:1px solid var(--hair);background:transparent;border-radius:3px;padding:7px 4px;font-size:11.5px;text-align:center;cursor:pointer}
+#tryonBox .row :is(button,label):hover{border-color:var(--ink)}
+#drapeGo{margin-top:8px;width:100%;border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:3px;padding:9px;font-weight:600}
+#drapeGo:hover:not(:disabled){background:var(--accent);border-color:var(--accent)}
+#drapeGo:disabled{opacity:.4;cursor:not-allowed}
+#apiNote{font-size:10.5px;color:var(--muted);margin-top:6px}
+/* drag ghost */
+#ghost{position:fixed;pointer-events:none;z-index:99;width:58px;height:58px;border-radius:3px;border:1px solid var(--ink);
+  transform:translate(-50%,-50%) scale(.9);box-shadow:0 8px 18px rgba(20,18,16,.25);display:none}
+/* print spec sheet */
+#printsheet{display:none}
+@media print{
+  body>*{display:none!important}
+  #printsheet{display:block!important;font:12px/1.6 var(--sans);color:#000}
+  #printsheet h1{font-family:var(--serif);font-size:28px}
+  #printsheet table{width:100%;border-collapse:collapse;margin:10px 0}
+  #printsheet td,#printsheet th{border:1px solid #999;padding:6px 8px;text-align:left;font-size:11px}
+  #printsheet img,#printsheet svg{max-width:280px;height:auto}
+  #printsheet .mono{font-family:var(--mono)}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= STAGE 1 ================= -->
+<section id="stage1">
+  <div class="mark">Atelier</div>
+  <h1>Describe the outfit.<br>We'll <i>build</i> it — material by material.</h1>
+  <div class="briefbox">
+    <textarea id="brief" rows="1" placeholder="a wine-red silk lehenga, heavy zari on the border, light on top, for a December wedding…"></textarea>
+    <select id="langSel" aria-label="Voice language"><option value="en-IN">EN</option><option value="hi-IN">हि</option><option value="te-IN">తె</option></select>
+    <button id="voiceBtn" aria-label="Speak your brief" title="Speak your brief">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+    </button>
+    <button id="goBtn">Begin</button>
+  </div>
+  <div class="chiprow" id="chips">
+    <span class="lbl">Occasion</span>
+    <button class="chip" data-k="occasion">wedding</button><button class="chip" data-k="occasion">sangeet</button>
+    <button class="chip" data-k="occasion">reception</button><button class="chip" data-k="occasion">festive</button>
+    <span class="lbl">Silhouette</span>
+    <button class="chip" data-k="garment">lehenga</button><button class="chip" data-k="garment">anarkali</button>
+    <button class="chip" data-k="garment">saree blouse</button><button class="chip" data-k="garment">sherwani</button>
+    <span class="lbl">Budget</span>
+    <button class="chip" data-k="budget" data-v="15000">under ₹15k</button>
+    <button class="chip" data-k="budget" data-v="40000">₹15–40k</button>
+    <button class="chip" data-k="budget" data-v="999999">no ceiling</button>
+  </div>
+  <span id="parserNote"></span>
+</section>
+
+<!-- ================= STUDIO ================= -->
+<section id="studio">
+  <div class="topbar">
+    <span class="mark">Atelier</span>
+    <span class="specline mono" id="specline"></span>
+    <button id="undoBtn" title="Undo last material">Undo</button>
+    <button id="clearBtn">Clear</button>
+    <button class="primary" id="exportBtn">Export spec sheet</button>
+  </div>
+
+  <div class="frame">
+    <!-- left: specimen book -->
+    <aside class="rail" aria-label="Material catalog">
+      <h2>The catalog</h2>
+      <p class="sub">Real materials. Drag one onto a zone of the garment.</p>
+      <div class="cats" id="cats"></div>
+      <div class="swatches" id="swatches"></div>
+    </aside>
+
+    <!-- center: canvas -->
+    <main class="canvas" id="canvasPane">
+      <span class="stagelbl" id="stageLbl">Stage 2 — choose a silhouette</span>
+      <div id="concepts"></div>
+      <div id="garmentWrap" class="hide">
+        <svg id="garment" viewBox="0 0 300 470" aria-label="Garment canvas with droppable zones"><defs id="patDefs"></defs><g id="zoneG"></g><g id="constructionG" class="construction"></g></svg>
+        <div id="zoneTip"></div>
+      </div>
+      <p class="canvashint" id="canvasHint">Three construction studies, drawn from your brief. Pick one to take to the workbench.</p>
+    </main>
+
+    <!-- right: co-designer + spec -->
+    <aside class="rightrail">
+      <div class="panelbox">
+        <h3>Co-designer</h3>
+        <div id="critique"><div class="note">I'll speak up as you place materials — weight, clash and cost.</div></div>
+      </div>
+      <div class="panelbox">
+        <h3>Spec sheet</h3>
+        <div id="specsheet"><table id="specTable"></table>
+        <div id="totalrow"><span>Material total</span><span id="costTotal">₹0</span></div>
+        <span class="budgetflag" id="budgetFlag"></span></div>
+      </div>
+      <div class="panelbox">
+        <h3>Versions</h3>
+        <div class="histbtns" id="versions"><span style="font-size:11.5px;color:var(--muted)">Saved automatically on every change.</span></div>
+      </div>
+      <div class="panelbox" id="tryonBox">
+        <h3>Try-on</h3>
+        <div class="drop" id="personDrop"><span id="personEmpty">Full-body photo —<br>drop it here or use the sample.</span></div>
+        <div class="row">
+          <label>Upload<input type="file" id="personFile" accept="image/*" style="display:none"></label>
+          <button id="sampleBtn">Sample photo</button>
+        </div>
+        <button id="drapeGo" disabled>Drape on the photo · cloth-v4 · 2u</button>
+        <div class="weave hide" id="drapeWeave"></div>
+        <p id="apiNote" class="mono">YouCam balance: <span id="bal">…</span>u</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<div id="ghost"></div>
+<div id="printsheet"></div>
+
+<script>
+/* ================================ catalog (61 materials) ================================ */
+const M=(id,name,cat,hex,price,gsm,drape,tags)=>({id,name,cat,hex,price,gsm,drape,tags});
+const CATALOG=[
+ // fabrics — price ₹/m, drape 1 stiff → 5 fluid
+ M("kanchi-silk","Kanchipuram silk","fabric","#7c1f2e",2400,120,2,"bridal grand zari-friendly"),
+ M("tussar","Tussar silk","fabric","#b8863b",950,90,3,"earthy festive"),
+ M("raw-silk","Raw silk","fabric","#c8873b",780,110,2,"structured blouse"),
+ M("banarasi","Banarasi brocade","fabric","#8c1f2f",1900,140,1,"bridal heavy woven-gold"),
+ M("georgette","Georgette","fabric","#c05c77",420,60,5,"flowy light summer"),
+ M("chiffon","Chiffon","fabric","#d98aa6",380,45,5,"sheer light dupatta"),
+ M("organza","Organza","fabric","#c7a8c8",520,50,4,"crisp sheer modern"),
+ M("chanderi","Chanderi","fabric","#d9c9a3",640,70,4,"sheer-glow festive"),
+ M("velvet","Velvet","fabric","#4a0f24",880,320,1,"winter royal heavy"),
+ M("khadi","Khadi cotton","fabric","#cfc2a4",280,150,3,"handloom daily breathable"),
+ M("mul-cotton","Mul cotton","fabric","#efe6d4",220,80,5,"soft summer daily"),
+ M("crepe","Crepe","fabric","#9e5b6c",460,85,4,"office modern"),
+ M("satin","Satin","fabric","#274690",540,95,4,"sheen party"),
+ M("net","Embroidery net","fabric","#e8dccb",350,40,4,"overlay sleeves"),
+ M("linen","Linen","fabric","#b8a88a",520,160,3,"summer breathable"),
+ M("modal","Modal silk","fabric","#0e6d74",610,100,4,"soft fall modern"),
+ // threads — ₹/reel-meterage equivalent
+ M("zari-gold","Gold zari","thread","#c9962e",160,0,0,"border bridal metallic"),
+ M("zari-silver","Silver zari","thread","#b9c0c9",150,0,0,"metallic modern"),
+ M("zari-copper","Antique copper zari","thread","#a15c2e",140,0,0,"temple antique"),
+ M("resham-red","Resham — red","thread","#b3202c",60,0,0,"floral dense"),
+ M("resham-peacock","Resham — peacock","thread","#0e6d74",60,0,0,"motif bird"),
+ M("resham-ivory","Resham — ivory","thread","#efe6d4",60,0,0,"tone-on-tone chikankari"),
+ M("kasab","Kasab thread","thread","#d4af5a",90,0,0,"fine metallic"),
+ M("cotton-thread","Cotton thread","thread","#8a7a5c",30,0,0,"kantha running"),
+ M("silk-floss","Silk floss","thread","#6b3fa0",80,0,0,"sheen satin-stitch"),
+ // embellishments — ₹/packet applied per zone
+ M("bindi-gold","Gold bindis","embellish","#d4af5a",120,0,0,"scatter tiny"),
+ M("bindi-red","Kumkum bindis","embellish","#a11226",110,0,0,"scatter traditional"),
+ M("sequin-gold","Gold sequins","embellish","#e0b83e",180,0,0,"shimmer dense"),
+ M("sequin-rose","Rose sequins","embellish","#d0326e",180,0,0,"shimmer party"),
+ M("mirror-round","Round mirrors","embellish","#9fb6bd",240,0,0,"sheesha folk"),
+ M("mirror-shard","Shard mirrors","embellish","#8ea3ad",260,0,0,"abstract modern"),
+ M("kundan","Kundan stones","embellish","#e7c56a",420,0,0,"bridal stone"),
+ M("pearl-seed","Seed pearls","embellish","#f4ecdd",360,0,0,"edging classic"),
+ M("pearl-baroque","Baroque pearls","embellish","#e9ddc6",480,0,0,"statement"),
+ M("beads-jet","Jet beads","embellish","#1d1a17",200,0,0,"outline modern"),
+ M("beads-coral","Coral beads","embellish","#c96a4a",210,0,0,"folk warm"),
+ M("stone-emerald","Emerald cut-stones","embellish","#1c6b4a",520,0,0,"royal accent"),
+ M("stone-ruby","Ruby cut-stones","embellish","#8c1f2f",520,0,0,"royal accent"),
+ M("dabka","Dabka coil","embellish","#c9a24e",380,0,0,"zardozi raised"),
+ M("nakshi","Nakshi spangles","embellish","#b98a2e",300,0,0,"antique texture"),
+ M("badla","Badla wire","embellish","#cfd3d8",280,0,0,"mukaish dots"),
+ M("swarovski","Crystal drops","embellish","#dfe6ee",600,0,0,"sparkle modern"),
+ M("shell","Cowrie shells","embellish","#efe2c8",160,0,0,"boho folk"),
+ // trims — ₹/m
+ M("lace-chantilly","Chantilly lace","trim","#efe6d4",320,0,0,"edging bridal"),
+ M("lace-crochet","Crochet lace","trim","#d9c9a3",180,0,0,"handmade daily"),
+ M("gota","Gota patti ribbon","trim","#e0b83e",140,0,0,"festive rajasthani"),
+ M("piping-gold","Gold piping","trim","#c9962e",90,0,0,"clean edge"),
+ M("piping-contrast","Contrast piping","trim","#141210",70,0,0,"modern edge"),
+ M("tassel-silk","Silk tassels","trim","#b3202c",130,0,0,"latkan hem"),
+ M("tassel-pearl","Pearl tassels","trim","#e9ddc6",210,0,0,"latkan bridal"),
+ M("fringe","Thread fringe","trim","#a15c2e",110,0,0,"boho hem"),
+ M("pompom","Pompom lace","trim","#d0326e",95,0,0,"playful daily"),
+ M("scallop","Scalloped border","trim","#c9a24e",260,0,0,"edge bridal"),
+ M("temple-border","Temple border","trim","#8c1f2f",340,0,0,"kanchi traditional"),
+ M("zip-invisible","Invisible zip","trim","#6f6659",60,0,0,"construction"),
+ M("button-potli","Potli buttons","trim","#7c1f2e",120,0,0,"closure classic"),
+ M("button-metal","Antique metal buttons","trim","#8a7a5c",150,0,0,"sherwani closure"),
+ M("hook-eye","Hook & eye tape","trim","#6f6659",45,0,0,"construction"),
+ M("belt-fab","Fabric waist belt","trim","#141210",240,0,0,"modern cinch"),
+ M("dori","Silk dori","trim","#b3202c",70,0,0,"back-tie"),
+ M("kiran","Kiran fringe","trim","#d4af5a",290,0,0,"dupatta bridal edge"),
+];
+const CATS=[["fabric","Fabrics"],["thread","Threads"],["embellish","Embellish"],["trim","Trims"]];
+
+/* texture recipe per category, built from hex — real-looking tiles without images */
+function texCSS(m){
+  const h=m.hex;
+  if(m.cat==="fabric")return`background:${h};background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.14) 0 1px,transparent 1px 3px),repeating-linear-gradient(0deg,rgba(0,0,0,.08) 0 1px,transparent 1px 3px)`;
+  if(m.cat==="thread")return`background:repeating-linear-gradient(45deg,${h} 0 2px,rgba(255,255,255,.35) 2px 3px,${h} 3px 5px)`;
+  if(m.cat==="embellish")return`background:#efe8dc;background-image:radial-gradient(circle at 30% 30%,${h} 2.6px,transparent 3px),radial-gradient(circle at 72% 68%,${h} 2.2px,transparent 2.7px);background-size:14px 14px,17px 17px`;
+  return`background:linear-gradient(180deg,transparent 0 34%,${h} 34% 66%,transparent 66%),repeating-linear-gradient(90deg,rgba(0,0,0,.12) 0 1px,transparent 1px 4px),#efe8dc`;
+}
+/* SVG pattern per material for zone fills */
+function patternFor(m){
+  const id="p-"+m.id;
+  if(document.getElementById(id))return`url(#${id})`;
+  const d=document.getElementById("patDefs"); let inner="";
+  if(m.cat==="fabric")inner=`<rect width="8" height="8" fill="${m.hex}"/><path d="M0 2h8M0 5h8" stroke="rgba(255,255,255,.16)" stroke-width="1"/><path d="M2 0v8M5 0v8" stroke="rgba(0,0,0,.10)" stroke-width="1"/>`;
+  else if(m.cat==="thread")inner=`<rect width="8" height="8" fill="rgba(247,243,236,.15)"/><path d="M-1 7L7 -1M1 9L9 1" stroke="${m.hex}" stroke-width="1.6"/>`;
+  else if(m.cat==="embellish")inner=`<rect width="8" height="8" fill="rgba(247,243,236,.06)"/><circle cx="4" cy="4" r="1.6" fill="${m.hex}"/><circle cx="4" cy="4" r=".6" fill="rgba(255,255,255,.8)"/>`;
+  else inner=`<rect width="8" height="8" fill="rgba(247,243,236,.06)"/><rect y="2.5" width="8" height="3" fill="${m.hex}"/>`;
+  d.insertAdjacentHTML("beforeend",`<pattern id="${id}" width="8" height="8" patternUnits="userSpaceOnUse">${inner}</pattern>`);
+  return`url(#${id})`;
+}
+const drapeWord=d=>["","stiff","structured","balanced","soft","fluid"][d]||"—";
+
+/* ================================ zones & silhouettes ================================ */
+/* meterage per zone; trims measured in metres, embellishments per application */
+const ZONES=[
+ {id:"bodice",label:"Bodice",m:1.2},
+ {id:"sleeves",label:"Sleeves",m:0.8},
+ {id:"skirt",label:"Skirt / lower",m:4.5},
+ {id:"border",label:"Hem border",m:3.0},
+ {id:"dupatta",label:"Dupatta",m:2.5},
+];
+/* three construction studies (Stage 2) — different skirt geometry */
+const SILHOUETTES=[
+ {id:"aline",name:"A-line",desc:"clean flare, quiet volume",skirt:"M85 215 L60 435 Q150 452 240 435 L215 215 Z"},
+ {id:"kali",name:"Twelve-kali",desc:"panelled, full circular flare",skirt:"M85 215 L38 437 Q150 462 262 437 L215 215 Z",kali:true},
+ {id:"mermaid",name:"Mermaid",desc:"fitted to knee, then flare",skirt:"M85 215 Q95 330 78 380 L52 440 Q150 460 248 440 L222 380 Q205 330 215 215 Z"},
+];
+const BODICE="M150 62 C170 62 180 74 181 88 C182 98 187 103 196 108 C209 115 214 128 215 143 L215 215 L85 215 L85 143 C86 128 91 115 104 108 C113 103 118 98 119 88 C120 74 130 62 150 62 Z";
+const SLEEVES="M85 148 C62 155 52 172 48 196 L44 236 L70 242 L85 205 Z M215 148 C238 155 248 172 252 196 L256 236 L230 242 L215 205 Z";
+const DUPATTA="M196 108 C232 128 250 190 246 268 L258 430 L282 428 L280 250 C278 165 252 112 214 96 Z";
+
+/* ================================ state ================================ */
+const state={spec:null,budget:null,silhouette:null,zones:{},history:[],versions:[],person:null,busy:false};
+const $=s=>document.querySelector(s);
+
+/* ================================ stage 1 ================================ */
+const chipsel={};
+document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{
+  const k=c.dataset.k;
+  document.querySelectorAll(`.chip[data-k="${k}"]`).forEach(x=>x.classList.toggle("on",x===c&&!c.classList.contains("on")));
+  chipsel[k]=c.classList.contains("on")?(c.dataset.v||c.textContent):null;
+});
+/* voice — Web Speech API, en/hi/te */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+$("#voiceBtn").onclick=()=>{
+  if(!SR){$("#parserNote").textContent="Voice input isn't available in this browser — type instead.";return}
+  const r=new SR(); r.lang=$("#langSel").value; r.interimResults=true;
+  $("#voiceBtn").classList.add("rec");
+  r.onresult=e=>{$("#brief").value=[...e.results].map(x=>x[0].transcript).join(" ")};
+  r.onend=()=>$("#voiceBtn").classList.remove("rec");
+  r.onerror=()=>$("#voiceBtn").classList.remove("rec");
+  r.start();
+};
+$("#brief").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();begin()}});
+$("#goBtn").onclick=begin;
+async function begin(){
+  let text=$("#brief").value.trim();
+  for(const k of["occasion","garment"])if(chipsel[k])text+=` ${chipsel[k]}`;
+  if(!text){$("#brief").focus();return}
+  $("#goBtn").textContent="Reading…";
+  try{
+    const r=await fetch("/api/brief",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text})});
+    const j=await r.json();
+    state.spec=j.spec; state.budget=chipsel.budget?+chipsel.budget:null;
+    $("#parserNote").textContent=`parsed by ${j.parser}`;
+    enterStudio();
+  }catch(e){$("#parserNote").textContent="Could not reach the studio server — is it running?"}
+  $("#goBtn").textContent="Begin";
+}
+
+/* ================================ studio ================================ */
+function enterStudio(){
+  $("#stage1").classList.add("hide");
+  $("#studio").classList.add("open");
+  const s=state.spec;
+  $("#specline").textContent=`${s.primaryColour} ${s.garment} · ${s.occasion||"—"} · ${s.weight} build${s.season?" · "+s.season:""}${state.budget?` · budget ₹${(+state.budget).toLocaleString("en-IN")}`:""}`;
+  // stage 2 — three construction studies
+  const box=$("#concepts"); box.innerHTML="";
+  SILHOUETTES.forEach(sil=>{
+    const el=document.createElement("div"); el.className="concept";
+    el.innerHTML=`<svg viewBox="0 0 300 470">${conceptSVG(sil)}</svg><div class="cn">${sil.name}</div><div class="cd">${sil.desc}</div>`;
+    el.onclick=()=>chooseSilhouette(sil);
+    box.appendChild(el);
+  });
+  buildRail();
+  loadBalance();
+}
+function conceptSVG(sil){
+  const line=`fill="none" stroke="#141210" stroke-width="1.4"`;
+  const dash=`fill="none" stroke="#6f6659" stroke-width=".8" stroke-dasharray="4 3"`;
+  return`<path d="${BODICE}" ${line}/><path d="${SLEEVES}" ${line}/><path d="${sil.skirt}" ${line}/><path d="${DUPATTA}" ${dash}/>
+  <path d="M85 180 L215 180 M110 62 L110 40 M190 62 L190 40" ${dash}/>
+  ${sil.kali?`<path d="M110 218 L96 440 M150 220 L150 452 M190 218 L204 440" ${dash}/>`:""}`;
+}
+function chooseSilhouette(sil){
+  state.silhouette=sil;
+  $("#concepts").classList.add("hide");
+  $("#garmentWrap").classList.remove("hide");
+  $("#stageLbl").textContent="Stage 3 — the material workbench";
+  $("#canvasHint").textContent="Drag materials from the catalog onto a zone. The zone re-renders; everything else stays locked.";
+  drawGarment(); renderSpec();
+}
+function zonePath(z){
+  if(z==="bodice")return BODICE;
+  if(z==="sleeves")return SLEEVES;
+  if(z==="skirt")return state.silhouette.skirt;
+  if(z==="dupatta")return DUPATTA;
+  /* border strip follows the hem of the current skirt */
+  if(state.silhouette.id==="kali")return"M38 437 Q150 462 262 437 L262 415 Q150 440 38 415 Z";
+  if(state.silhouette.id==="mermaid")return"M52 440 Q150 460 248 440 L248 418 Q150 438 52 418 Z";
+  return"M60 435 Q150 452 240 435 L240 413 Q150 430 60 413 Z";
+}
+function drawGarment(){
+  const g=$("#zoneG"),c=$("#constructionG"); g.innerHTML=""; c.innerHTML="";
+  const order=["dupatta","skirt","border","sleeves","bodice"];
+  order.forEach(zid=>{
+    const z=ZONES.find(x=>x.id===zid);
+    const mat=state.zones[zid]?CATALOG.find(m=>m.id===state.zones[zid]):null;
+    const fill=mat?patternFor(mat):"rgba(255,253,249,.85)";
+    const p=document.createElementNS("http://www.w3.org/2000/svg","path");
+    p.setAttribute("d",zonePath(zid)); p.setAttribute("class","zone"); p.dataset.zone=zid;
+    p.setAttribute("fill",fill); p.setAttribute("stroke","#141210"); p.setAttribute("stroke-width","1.3");
+    if(mat)p.setAttribute("data-mat",mat.id);
+    g.appendChild(p);
+  });
+  c.innerHTML=`<path d="M85 180 L215 180" fill="none" stroke="#6f6659" stroke-width=".8" stroke-dasharray="4 3"/>
+  ${state.silhouette.kali?`<path d="M110 218 L96 440 M150 220 L150 452 M190 218 L204 440" fill="none" stroke="#6f6659" stroke-width=".8" stroke-dasharray="4 3"/>`:""}`;
+  wireZones();
+}
+function wireZones(){
+  const tip=$("#zoneTip");
+  document.querySelectorAll("#garment .zone").forEach(p=>{
+    const z=ZONES.find(x=>x.id===p.dataset.zone);
+    p.addEventListener("mousemove",e=>{
+      const r=$("#garmentWrap").getBoundingClientRect();
+      tip.style.display="block"; tip.style.left=(e.clientX-r.left)+"px"; tip.style.top=(e.clientY-r.top)+"px";
+      const mat=state.zones[z.id]?CATALOG.find(m=>m.id===state.zones[z.id]).name:"empty";
+      tip.textContent=`${z.label} — ${mat}`;
+      p.classList.add("hot");
+    });
+    p.addEventListener("mouseleave",()=>{tip.style.display="none";p.classList.remove("hot")});
+  });
+}
+
+/* ================================ rail + drag ================================ */
+let activeCat="fabric";
+function buildRail(){
+  const cats=$("#cats"); cats.innerHTML="";
+  CATS.forEach(([id,label])=>{
+    const b=document.createElement("button"); b.textContent=label; b.className=id===activeCat?"on":"";
+    b.onclick=()=>{activeCat=id;buildRail()}; cats.appendChild(b);
+  });
+  const box=$("#swatches"); box.innerHTML="";
+  CATALOG.filter(m=>m.cat===activeCat).forEach(m=>{
+    const el=document.createElement("div"); el.className="swatch"; el.draggable=true; el.dataset.id=m.id;
+    el.innerHTML=`<div class="tex" style="${texCSS(m)}"></div><div class="nm">${m.name}</div>
+      <div class="pr">₹${m.price}${m.cat==="fabric"||m.cat==="trim"?"/m":""}</div>
+      <div class="meta">${m.gsm?`${m.gsm} gsm · ${drapeWord(m.drape)} drape<br>`:""}${m.tags.split(" ").slice(0,3).join(" · ")}</div>`;
+    el.addEventListener("dragstart",e=>{
+      e.dataTransfer.setData("text/plain",m.id);
+      const img=new Image(); img.src="data:image/gif;base64,R0lGODlhAQABAAAAACw="; e.dataTransfer.setDragImage(img,0,0);
+      ghostOn(m);
+    });
+    el.addEventListener("dragend",ghostOff);
+    box.appendChild(el);
+  });
+}
+/* custom ghost that follows the cursor at .9 scale */
+const ghost=$("#ghost");
+let ghostMove=null;
+function ghostOn(m){ghost.style.cssText+=";display:block;"+texCSS(m);ghostMove=e=>{ghost.style.left=e.clientX+"px";ghost.style.top=e.clientY+"px"};document.addEventListener("dragover",ghostMove)}
+function ghostOff(){ghost.style.display="none";if(ghostMove)document.removeEventListener("dragover",ghostMove)}
+
+/* zone dropping */
+document.addEventListener("dragover",e=>{
+  const z=e.target.closest?.(".zone"); document.querySelectorAll(".zone.hot").forEach(x=>x.classList.remove("hot"));
+  if(z){e.preventDefault();z.classList.add("hot")}
+});
+document.addEventListener("drop",e=>{
+  const z=e.target.closest?.(".zone"); if(!z)return;
+  e.preventDefault(); ghostOff();
+  const id=e.dataTransfer.getData("text/plain"); const m=CATALOG.find(x=>x.id===id); if(!m)return;
+  placeMaterial(z.dataset.zone,m);
+});
+function placeMaterial(zoneId,m){
+  state.history.push(JSON.stringify(state.zones));
+  state.zones[zoneId]=m.id;
+  snapshotVersion();
+  drawGarment();
+  const p=document.querySelector(`.zone[data-zone="${zoneId}"]`);
+  p?.classList.add("settle"); setTimeout(()=>p?.classList.remove("settle"),320);
+  renderSpec(); critique(zoneId,m);
+  $("#drapeGo").disabled=!state.person||!Object.keys(state.zones).length||state.busy;
+}
+$("#undoBtn").onclick=()=>{const h=state.history.pop();if(h!=null){state.zones=JSON.parse(h);drawGarment();renderSpec();critique()}};
+$("#clearBtn").onclick=()=>{state.history.push(JSON.stringify(state.zones));state.zones={};drawGarment();renderSpec();critique()};
+
+/* versions */
+function snapshotVersion(){
+  state.versions.push(JSON.stringify(state.zones));
+  if(state.versions.length>8)state.versions.shift();
+  const v=$("#versions"); v.innerHTML="";
+  state.versions.forEach((snap,i)=>{
+    const b=document.createElement("button"); b.textContent="v"+(i+1);
+    b.onclick=()=>{state.zones=JSON.parse(snap);drawGarment();renderSpec();critique()};
+    v.appendChild(b);
+  });
+}
+
+/* ================================ spec sheet ================================ */
+function lineCost(z,m){
+  if(m.cat==="fabric")return m.price*z.m;
+  if(m.cat==="trim")return m.price*(z.id==="border"?z.m:1.5);
+  if(m.cat==="thread")return m.price*(z.id==="border"?3:2);
+  return m.price; /* embellishment packet per zone */
+}
+function renderSpec(){
+  const t=$("#specTable"); t.innerHTML=""; let total=0;
+  ZONES.forEach(z=>{
+    const mid=state.zones[z.id];
+    const m=mid?CATALOG.find(x=>x.id===mid):null;
+    const cost=m?lineCost(z,m):0; total+=cost;
+    t.insertAdjacentHTML("beforeend",`<tr><td><span class="zn">${z.label}</span><br>${m?m.name:"<span style='color:var(--muted)'>—</span>"}</td>
+      <td>${m?`${m.cat==="fabric"?z.m.toFixed(1)+" m · ":""}₹${cost.toLocaleString("en-IN")}`:""}</td></tr>`);
+  });
+  $("#costTotal").textContent="₹"+total.toLocaleString("en-IN");
+  const f=$("#budgetFlag");
+  f.textContent=(state.budget&&total>state.budget)?`₹${(total-state.budget).toLocaleString("en-IN")} over your budget band`:"";
+  return total;
+}
+
+/* ================================ co-designer (rule engine, honest) ================================ */
+function critique(lastZone,lastMat){
+  const box=$("#critique"); const notes=[];
+  const get=z=>state.zones[z]?CATALOG.find(m=>m.id===state.zones[z]):null;
+  const bod=get("bodice"),slv=get("sleeves"),skt=get("skirt"),dup=get("dupatta");
+  if(slv&&bod&&slv.gsm>250&&bod.gsm&&bod.gsm<80)
+    notes.push(["warn",`${slv.name} on the sleeves adds weight a ${bod.name} bodice can't carry — try organza or chanderi there.`]);
+  if(skt&&skt.drape>=5&&state.spec.weight==="heavy")
+    notes.push(["warn",`A ${skt.name} skirt reads light; your brief said a ${state.spec.weight} build. Kanchipuram or Banarasi will hold the flare.`]);
+  if(dup&&dup.gsm>200)notes.push(["warn",`${dup.name} is heavy for a dupatta — it will sit, not float. Chiffon or organza drapes better.`]);
+  if(bod&&skt&&bod.hex===skt.hex)notes.push(["note","Bodice and skirt are the same material — consider a contrast border to break the column."]);
+  const total=renderSpec();
+  if(state.budget&&total>state.budget)notes.push(["bad",`This combination is over the budget band — the ${costliest()} is the biggest line. Swap it to bring the total down.`]);
+  if(lastMat&&lastMat.cat==="embellish"&&lastZone==="skirt"&&state.spec.weight==="light")
+    notes.push(["note",`${lastMat.name} all over the skirt fights the "light" brief — keep it to the border.`]);
+  if(!notes.length&&Object.keys(state.zones).length)
+    notes.push(["note",`Balanced so far. ${suggestion()}`]);
+  if(!Object.keys(state.zones).length)notes.push(["note","I'll speak up as you place materials — weight, clash and cost."]);
+  box.innerHTML=notes.map(([k,txt])=>`<div class="note ${k}">${txt}</div>`).join("");
+}
+function costliest(){let best=null,bc=0;ZONES.forEach(z=>{const m=state.zones[z.id]&&CATALOG.find(x=>x.id===state.zones[z.id]);if(m){const c=lineCost(z,m);if(c>bc){bc=c;best=m.name}}});return best||"top line"}
+function suggestion(){
+  if(!state.zones.border)return"A hem border is still empty — gota patti or a temple border would anchor it.";
+  if(!state.zones.dupatta)return"The dupatta is bare — chiffon with kiran fringe is a classic finish.";
+  return"Try a version with the bodice in contrast — save this one first from Versions.";
+}
+
+/* ================================ try-on (cloth-v4 via server) ================================ */
+async function loadBalance(){try{const j=await(await fetch("/api/credits")).json();$("#bal").textContent=j.balance??"—"}catch{$("#bal").textContent="—"}}
+/* decode() can stall on a backgrounded tab — race it against load */
+function ready(img){
+  return new Promise((ok,no)=>{
+    if(img.complete&&img.naturalWidth)return ok(img);
+    img.onload=()=>ok(img); img.onerror=()=>no(new Error("image failed to load"));
+  });
+}
+async function setPerson(srcOrFile){
+  const url=typeof srcOrFile==="string"?srcOrFile:URL.createObjectURL(srcOrFile);
+  const img=new Image(); img.src=url; await ready(img);
+  const sc=Math.min(1,1280/Math.max(img.width,img.height));
+  const c=document.createElement("canvas"); c.width=img.width*sc|0; c.height=img.height*sc|0;
+  c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+  state.person=c.toDataURL("image/jpeg",.92);
+  const d=$("#personDrop"); d.querySelectorAll("img").forEach(i=>i.remove());
+  const v=new Image(); v.src=state.person; v.alt="Customer photo"; d.prepend(v); $("#personEmpty").style.display="none";
+  if(typeof srcOrFile!=="string")URL.revokeObjectURL(url);
+  $("#drapeGo").disabled=!Object.keys(state.zones).length||state.busy;
+}
+$("#personFile").addEventListener("change",e=>e.target.files[0]&&setPerson(e.target.files[0]));
+$("#sampleBtn").onclick=()=>setPerson("/sample.jpg");
+const pd=$("#personDrop");
+pd.addEventListener("dragover",e=>{e.preventDefault();pd.classList.add("over")});
+pd.addEventListener("dragleave",()=>pd.classList.remove("over"));
+pd.addEventListener("drop",e=>{e.preventDefault();pd.classList.remove("over");e.dataTransfer.files[0]&&setPerson(e.dataTransfer.files[0])});
+
+async function garmentPNG(){
+  /* export a clean garment, not the technical drawing: drop construction lines,
+     thin the seam strokes — cloth-v4 reads the materials, not the blueprint */
+  const svg=$("#garment").cloneNode(true);
+  svg.querySelector("#constructionG")?.remove();
+  svg.querySelectorAll(".zone").forEach(p=>{p.setAttribute("stroke","rgba(20,18,16,.35)");p.setAttribute("stroke-width",".6")});
+  const xml=new XMLSerializer().serializeToString(svg);
+  const img=new Image(); img.src="data:image/svg+xml;base64,"+btoa(unescape(encodeURIComponent(xml)));
+  await ready(img);
+  const c=document.createElement("canvas"); c.width=600; c.height=940;
+  const ctx=c.getContext("2d"); ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,600,940);
+  ctx.drawImage(img,0,0,600,940);
+  return c.toDataURL("image/png");
+}
+$("#drapeGo").onclick=async()=>{
+  if(state.busy)return; state.busy=true;
+  $("#drapeGo").disabled=true; $("#drapeWeave").classList.remove("hide");
+  $("#drapeGo").textContent="At the loom — cloth-v4 running…";
+  try{
+    const garment=await garmentPNG();
+    const r=await fetch("/api/tryon",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({garmentBase64:garment,personBase64:state.person,category:"full_body"})});
+    const j=await r.json();
+    if(!r.ok)throw new Error(j.error||r.status);
+    const d=$("#personDrop"); d.querySelectorAll("img").forEach(i=>i.remove());
+    const v=new Image(); v.src=j.url; v.alt="Try-on result"; d.prepend(v);
+    state.tryOnUrl=j.url;
+    $("#apiNote").innerHTML=`cloth-v4 · ${j.cached?"cache · 0":j.units}u spent · balance <span id="bal">…</span>u`;
+    loadBalance();
+  }catch(e){
+    $("#apiNote").innerHTML=`<span style="color:var(--bad)">${e.message}</span>`;
+  }
+  $("#drapeWeave").classList.add("hide");
+  $("#drapeGo").textContent="Drape on the photo · cloth-v4 · 2u";
+  state.busy=false; $("#drapeGo").disabled=false;
+};
+
+/* ================================ export — print spec sheet ================================ */
+$("#exportBtn").onclick=async()=>{
+  const s=state.spec; const total=renderSpec();
+  const rows=ZONES.map(z=>{
+    const m=state.zones[z.id]&&CATALOG.find(x=>x.id===state.zones[z.id]);
+    return`<tr><td>${z.label}</td><td>${m?m.name:"—"}</td><td>${m?m.cat:""}</td>
+      <td class="mono">${m&&(m.cat==="fabric")?z.m.toFixed(1)+" m":m&&m.cat==="trim"?(z.id==="border"?z.m:1.5)+" m":m?"1 application":""}</td>
+      <td class="mono">${m?"₹"+lineCost(z,m).toLocaleString("en-IN"):""}</td></tr>`;
+  }).join("");
+  const garment=$("#garmentWrap").classList.contains("hide")?"":await garmentPNG();
+  $("#printsheet").innerHTML=`
+    <h1>Atelier — tailor spec sheet</h1>
+    <p>${s.primaryColour} ${s.garment} · ${s.occasion||""} · ${s.weight} build · silhouette: ${state.silhouette?.name||"—"}</p>
+    <div style="display:flex;gap:20px;align-items:flex-start">
+      ${garment?`<img src="${garment}" alt="Garment render">`:""}
+      ${state.tryOnUrl?`<img src="${state.tryOnUrl}" alt="Try-on render">`:""}
+    </div>
+    <table><tr><th>Zone</th><th>Material</th><th>Category</th><th>Quantity</th><th>Cost</th></tr>${rows}
+      <tr><th colspan="4">Material total</th><th class="mono">₹${total.toLocaleString("en-IN")}</th></tr></table>
+    <p>Customer notes: ${s.notes||"—"}</p>
+    <table><tr><th>Measurement</th><th>cm</th></tr>
+      ${["Bust","Waist","Hip","Shoulder","Sleeve length","Blouse length","Skirt length"].map(x=>`<tr><td>${x}</td><td></td></tr>`).join("")}</table>
+    <p class="mono">Generated by Atelier · renders via YouCam cloth-v4 · prices are catalog estimates</p>`;
+  window.print();
+};
+</script>
+</body>
+</html>
