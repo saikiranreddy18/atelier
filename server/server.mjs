@@ -117,6 +117,16 @@ createServer(async (req, res) => {
       catch { return sendJson(res, 200, { balance: null }); }
     }
 
+    if (req.method === "GET" && url.pathname === "/api/catalog") {
+      const cat = JSON.parse(await readFile(join(ROOT, "catalog.json"), "utf8"));
+      // tell the client which swatches Pass B has actually produced
+      for (const m of cat.materials) {
+        m.swatch = existsSync(join(PUB, "swatches", `${m.id}.jpg`)) ? `/swatches/${m.id}.jpg` : null;
+        m.thumb = existsSync(join(PUB, "thumbs", `${m.id}.jpg`)) ? `/thumbs/${m.id}.jpg` : m.swatch;
+      }
+      return sendJson(res, 200, cat);
+    }
+
     if (req.method === "POST" && url.pathname === "/api/brief") {
       const { text } = JSON.parse(await readBody(req));
       if (!text?.trim()) return sendJson(res, 400, { error: "empty brief" });
@@ -125,6 +135,14 @@ createServer(async (req, res) => {
         spec: viaClaude || parseBrief(text),
         parser: viaClaude ? "claude" : "on-device rules",
       });
+    }
+
+    if (req.method === "POST" && url.pathname === "/api/_snapshot") { // local QA only
+      const { png, name } = JSON.parse(await readBody(req));
+      const safe = String(name || "qa").replace(/[^a-z0-9-]/gi, "").slice(0, 40) || "qa";
+      await ensureDir(RENDERS);
+      await writeFile(join(RENDERS, `_${safe}.png`), Buffer.from(String(png).replace(/^data:image\/png;base64,/, ""), "base64"));
+      return sendJson(res, 200, { ok: true });
     }
 
     if (req.method === "POST" && url.pathname === "/api/tryon") {

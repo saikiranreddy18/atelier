@@ -1,0 +1,2877 @@
+{
+  "generatedAt": "2026-08-17T13:45:44.984Z",
+  "count": 69,
+  "materials": [
+    {
+      "id": "kanchipuram",
+      "name": "Kanchipuram silk",
+      "category": "fabric",
+      "subcategory": "heavy",
+      "region": "Tamil Nadu",
+      "usedFor": "bridal sarees, lehenga skirts, structured bodices",
+      "texture_prompt": "Seamless tileable fabric swatch, Kanchipuram silk from Tamil Nadu in deep wine red, dense mulberry silk weave with a contrast zari border, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#7c1f2e",
+      "secondary_hex": "#c9962e",
+      "gsm": 120,
+      "drape": 2,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 2400,
+      "minMeterage": 5.5,
+      "seasons": [
+        "winter",
+        "monsoon"
+      ],
+      "occasions": [
+        "wedding",
+        "reception"
+      ],
+      "pairsWith": [
+        "paithani",
+        "banarasi",
+        "velvet",
+        "dupion",
+        "uppada"
+      ],
+      "avoidWith": [
+        "velvet",
+        "chiffon",
+        "muslin",
+        "denim"
+      ],
+      "tags": [
+        "bridal",
+        "zari",
+        "temple"
+      ]
+    },
+    {
+      "id": "banarasi",
+      "name": "Banarasi brocade",
+      "category": "fabric",
+      "subcategory": "heavy",
+      "region": "Uttar Pradesh",
+      "usedFor": "lehengas, sherwanis, jacket panels",
+      "texture_prompt": "Seamless tileable fabric swatch, Banarasi brocade from Uttar Pradesh in crimson red, raised gold floral butis on a satin ground, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#8c1f2f",
+      "secondary_hex": "#e0b83e",
+      "gsm": 140,
+      "drape": 1,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 1900,
+      "minMeterage": 5,
+      "seasons": [
+        "winter"
+      ],
+      "occasions": [
+        "wedding",
+        "reception"
+      ],
+      "pairsWith": [
+        "paithani",
+        "kanchipuram",
+        "velvet",
+        "zari-brocade",
+        "dupion"
+      ],
+      "avoidWith": [
+        "velvet",
+        "georgette",
+        "chiffon",
+        "organza",
+        "net"
+      ],
+      "tags": [
+        "bridal",
+        "brocade",
+        "gold"
+      ]
+    },
+    {
+      "id": "uppada",
+      "name": "Uppada jamdani",
+      "category": "fabric",
+      "subcategory": "heavy",
+      "region": "Andhra Pradesh",
+      "usedFor": "sarees, dupattas, light lehengas",
+      "texture_prompt": "Seamless tileable fabric swatch, Uppada jamdani from Andhra Pradesh in deep teal, fine handloom ground with inlaid jamdani motif work, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#0e6d74",
+      "secondary_hex": "#d4af5a",
+      "gsm": 85,
+      "drape": 3,
+      "sheen": 3,
+      "opacity": 4,
+      "stretch": false,
+      "pricePerMeter": 1650,
+      "minMeterage": 5.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "wedding",
+        "festive"
+      ],
+      "pairsWith": [
+        "mysore-crepe",
+        "kosa",
+        "maheshwari",
+        "chanderi",
+        "venkatagiri"
+      ],
+      "avoidWith": [
+        "velvet",
+        "denim"
+      ],
+      "tags": [
+        "handloom",
+        "jamdani",
+        "andhra"
+      ]
+    },
+    {
+      "id": "paithani",
+      "name": "Paithani",
+      "category": "fabric",
+      "subcategory": "heavy",
+      "region": "Maharashtra",
+      "usedFor": "sarees, dupatta borders",
+      "texture_prompt": "Seamless tileable fabric swatch, Paithani from Maharashtra in deep emerald green, tapestry weave with peacock motif and colour-shift sheen, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#1c6b4a",
+      "secondary_hex": "#b3202c",
+      "gsm": 130,
+      "drape": 2,
+      "sheen": 5,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 2800,
+      "minMeterage": 5.5,
+      "seasons": [
+        "winter"
+      ],
+      "occasions": [
+        "wedding",
+        "reception"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "banarasi",
+        "velvet",
+        "dupion",
+        "zari-brocade"
+      ],
+      "avoidWith": [
+        "velvet",
+        "georgette",
+        "chiffon",
+        "muslin",
+        "denim"
+      ],
+      "tags": [
+        "heritage",
+        "peacock",
+        "zari"
+      ]
+    },
+    {
+      "id": "dupion",
+      "name": "Dupion silk",
+      "category": "fabric",
+      "subcategory": "heavy",
+      "region": "Karnataka",
+      "usedFor": "bodices, structured skirts, jackets",
+      "texture_prompt": "Seamless tileable fabric swatch, Dupion silk from Karnataka in crimson red, visible slubs, crisp body, high sheen, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#b3202c",
+      "secondary_hex": "#e8c07a",
+      "gsm": 110,
+      "drape": 2,
+      "sheen": 5,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 860,
+      "minMeterage": 3,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "reception",
+        "party"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "paithani",
+        "banarasi",
+        "tissue",
+        "velvet"
+      ],
+      "avoidWith": [
+        "velvet",
+        "chiffon",
+        "denim"
+      ],
+      "tags": [
+        "structured",
+        "sheen"
+      ]
+    },
+    {
+      "id": "matka",
+      "name": "Raw silk (matka)",
+      "category": "fabric",
+      "subcategory": "heavy",
+      "region": "West Bengal",
+      "usedFor": "jackets, bodices, kurtas",
+      "texture_prompt": "Seamless tileable fabric swatch, Raw silk (matka) from West Bengal in burnt orange, coarse irregular slub, matte finish, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#c8873b",
+      "secondary_hex": "#8a7a5c",
+      "gsm": 115,
+      "drape": 2,
+      "sheen": 2,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 780,
+      "minMeterage": 3,
+      "seasons": [
+        "winter",
+        "summer"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "mangalgiri",
+        "pochampally",
+        "kalamkari",
+        "kosa",
+        "handloom-cotton"
+      ],
+      "avoidWith": [
+        "velvet",
+        "chiffon",
+        "muslin",
+        "denim"
+      ],
+      "tags": [
+        "matte",
+        "slub"
+      ]
+    },
+    {
+      "id": "velvet",
+      "name": "Velvet",
+      "category": "fabric",
+      "subcategory": "heavy",
+      "region": "Gujarat",
+      "usedFor": "winter lehengas, bodices, blouse yokes",
+      "texture_prompt": "Seamless tileable fabric swatch, Velvet from Gujarat in deep magenta, deep pile that absorbs light, plush hand, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#4a0f24",
+      "secondary_hex": "#2b0a16",
+      "gsm": 320,
+      "drape": 1,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 880,
+      "minMeterage": 4,
+      "seasons": [
+        "winter"
+      ],
+      "occasions": [
+        "wedding",
+        "reception"
+      ],
+      "pairsWith": [
+        "banarasi",
+        "paithani",
+        "kanchipuram",
+        "zari-brocade",
+        "dupion"
+      ],
+      "avoidWith": [
+        "georgette",
+        "chiffon",
+        "organza",
+        "net",
+        "mysore-crepe"
+      ],
+      "tags": [
+        "plush",
+        "winter",
+        "heavy"
+      ]
+    },
+    {
+      "id": "zari-brocade",
+      "name": "Zari brocade",
+      "category": "fabric",
+      "subcategory": "heavy",
+      "region": "Uttar Pradesh",
+      "usedFor": "borders, yokes, cuffs",
+      "texture_prompt": "Seamless tileable fabric swatch, Zari brocade from Uttar Pradesh in burnt orange, metallic ground with a geometric repeat, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#a16207",
+      "secondary_hex": "#e7c56a",
+      "gsm": 160,
+      "drape": 1,
+      "sheen": 5,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 1450,
+      "minMeterage": 1.5,
+      "seasons": [
+        "winter"
+      ],
+      "occasions": [
+        "wedding"
+      ],
+      "pairsWith": [
+        "banarasi",
+        "paithani",
+        "kanchipuram",
+        "velvet"
+      ],
+      "avoidWith": [
+        "georgette",
+        "chiffon",
+        "organza",
+        "net",
+        "mysore-crepe"
+      ],
+      "tags": [
+        "metallic",
+        "border"
+      ]
+    },
+    {
+      "id": "tissue",
+      "name": "Tissue silk",
+      "category": "fabric",
+      "subcategory": "heavy",
+      "region": "Tamil Nadu",
+      "usedFor": "festive sarees, overlays",
+      "texture_prompt": "Seamless tileable fabric swatch, Tissue silk from Tamil Nadu in peach, sheer weave shot through with metallic, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#e9ddc6",
+      "secondary_hex": "#d4af5a",
+      "gsm": 60,
+      "drape": 3,
+      "sheen": 5,
+      "opacity": 2,
+      "stretch": false,
+      "pricePerMeter": 1100,
+      "minMeterage": 4,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "reception"
+      ],
+      "pairsWith": [
+        "organza",
+        "chanderi",
+        "venkatagiri",
+        "maheshwari",
+        "uppada"
+      ],
+      "avoidWith": [
+        "velvet",
+        "denim"
+      ],
+      "tags": [
+        "sheer",
+        "metallic"
+      ]
+    },
+    {
+      "id": "kosa",
+      "name": "Kosa / tussar silk",
+      "category": "fabric",
+      "subcategory": "heavy",
+      "region": "Chhattisgarh",
+      "usedFor": "sarees, kurtas, jackets",
+      "texture_prompt": "Seamless tileable fabric swatch, Kosa / tussar silk from Chhattisgarh in burnt orange, golden-tan natural sheen with a textured hand, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#b8863b",
+      "secondary_hex": "#8a6a3a",
+      "gsm": 95,
+      "drape": 3,
+      "sheen": 3,
+      "opacity": 4,
+      "stretch": false,
+      "pricePerMeter": 950,
+      "minMeterage": 4.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "mysore-crepe",
+        "matka",
+        "maheshwari",
+        "chanderi",
+        "venkatagiri"
+      ],
+      "avoidWith": [
+        "velvet",
+        "denim"
+      ],
+      "tags": [
+        "natural",
+        "tussar"
+      ]
+    },
+    {
+      "id": "georgette",
+      "name": "Georgette",
+      "category": "fabric",
+      "subcategory": "light",
+      "region": "Gujarat",
+      "usedFor": "flowy lehengas, dupattas, sarees, anarkalis",
+      "texture_prompt": "Seamless tileable fabric swatch, Georgette from Gujarat in rani pink, grainy crinkle surface with a fluid fall, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#c05c77",
+      "secondary_hex": "#8f4055",
+      "gsm": 60,
+      "drape": 5,
+      "sheen": 2,
+      "opacity": 4,
+      "stretch": false,
+      "pricePerMeter": 420,
+      "minMeterage": 5,
+      "seasons": [
+        "summer",
+        "monsoon"
+      ],
+      "occasions": [
+        "party",
+        "festive"
+      ],
+      "pairsWith": [
+        "chiffon",
+        "organza",
+        "chanderi",
+        "venkatagiri",
+        "maheshwari"
+      ],
+      "avoidWith": [
+        "banarasi",
+        "paithani",
+        "velvet",
+        "zari-brocade",
+        "denim"
+      ],
+      "tags": [
+        "flowy",
+        "everyday"
+      ]
+    },
+    {
+      "id": "chiffon",
+      "name": "Chiffon",
+      "category": "fabric",
+      "subcategory": "light",
+      "region": "Gujarat",
+      "usedFor": "dupattas, sarees, layered skirts",
+      "texture_prompt": "Seamless tileable fabric swatch, Chiffon from Gujarat in rani pink, near-transparent, weightless, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#d98aa6",
+      "secondary_hex": "#b8697f",
+      "gsm": 45,
+      "drape": 5,
+      "sheen": 3,
+      "opacity": 2,
+      "stretch": false,
+      "pricePerMeter": 380,
+      "minMeterage": 4,
+      "seasons": [
+        "summer"
+      ],
+      "occasions": [
+        "party",
+        "festive"
+      ],
+      "pairsWith": [
+        "georgette",
+        "organza",
+        "net",
+        "chanderi",
+        "venkatagiri"
+      ],
+      "avoidWith": [
+        "kanchipuram",
+        "banarasi",
+        "paithani",
+        "dupion",
+        "matka"
+      ],
+      "tags": [
+        "sheer",
+        "weightless"
+      ]
+    },
+    {
+      "id": "organza",
+      "name": "Organza",
+      "category": "fabric",
+      "subcategory": "light",
+      "region": "Karnataka",
+      "usedFor": "sleeves, overlays, ruffles, dupattas",
+      "texture_prompt": "Seamless tileable fabric swatch, Organza from Karnataka in rose pink, sheer with crisp body that holds its shape, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#c7a8c8",
+      "secondary_hex": "#a486a5",
+      "gsm": 50,
+      "drape": 4,
+      "sheen": 4,
+      "opacity": 2,
+      "stretch": false,
+      "pricePerMeter": 520,
+      "minMeterage": 3,
+      "seasons": [
+        "summer",
+        "monsoon"
+      ],
+      "occasions": [
+        "reception",
+        "party"
+      ],
+      "pairsWith": [
+        "satin",
+        "chiffon",
+        "tissue",
+        "georgette",
+        "net"
+      ],
+      "avoidWith": [
+        "banarasi",
+        "velvet",
+        "zari-brocade",
+        "denim"
+      ],
+      "tags": [
+        "sheer",
+        "crisp"
+      ]
+    },
+    {
+      "id": "net",
+      "name": "Net / tulle",
+      "category": "fabric",
+      "subcategory": "light",
+      "region": "Gujarat",
+      "usedFor": "cancan layers, dupattas, sleeves",
+      "texture_prompt": "Seamless tileable fabric swatch, Net / tulle from Gujarat in peach, open mesh ground, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#e8dccb",
+      "secondary_hex": "#cbbfa4",
+      "gsm": 40,
+      "drape": 4,
+      "sheen": 2,
+      "opacity": 1,
+      "stretch": false,
+      "pricePerMeter": 350,
+      "minMeterage": 6,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "wedding",
+        "party"
+      ],
+      "pairsWith": [
+        "chiffon",
+        "organza",
+        "georgette",
+        "uppada",
+        "satin"
+      ],
+      "avoidWith": [
+        "banarasi",
+        "velvet",
+        "zari-brocade",
+        "denim"
+      ],
+      "tags": [
+        "mesh",
+        "volume"
+      ]
+    },
+    {
+      "id": "mysore-crepe",
+      "name": "Crepe (Mysore silk)",
+      "category": "fabric",
+      "subcategory": "light",
+      "region": "Karnataka",
+      "usedFor": "sarees, lining, slip dresses",
+      "texture_prompt": "Seamless tileable fabric swatch, Crepe (Mysore silk) from Karnataka in rani pink, pebbled matte surface with a heavy fall, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#9e5b6c",
+      "secondary_hex": "#6f3f4c",
+      "gsm": 85,
+      "drape": 4,
+      "sheen": 2,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 640,
+      "minMeterage": 5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kosa",
+        "maheshwari",
+        "chanderi",
+        "venkatagiri",
+        "mangalgiri"
+      ],
+      "avoidWith": [
+        "velvet",
+        "zari-brocade",
+        "denim"
+      ],
+      "tags": [
+        "matte",
+        "fall"
+      ]
+    },
+    {
+      "id": "satin",
+      "name": "Satin",
+      "category": "fabric",
+      "subcategory": "light",
+      "region": "Surat",
+      "usedFor": "linings, slip gowns, piping",
+      "texture_prompt": "Seamless tileable fabric swatch, Satin from Surat in royal blue, high-shine face, matte back, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#274690",
+      "secondary_hex": "#16264f",
+      "gsm": 95,
+      "drape": 4,
+      "sheen": 5,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 540,
+      "minMeterage": 3,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "party",
+        "reception"
+      ],
+      "pairsWith": [
+        "organza",
+        "tissue",
+        "georgette",
+        "chiffon",
+        "net"
+      ],
+      "avoidWith": [
+        "velvet",
+        "zari-brocade",
+        "denim"
+      ],
+      "tags": [
+        "shine",
+        "lining"
+      ]
+    },
+    {
+      "id": "chanderi",
+      "name": "Chanderi cotton-silk",
+      "category": "fabric",
+      "subcategory": "light",
+      "region": "Madhya Pradesh",
+      "usedFor": "dupattas, kurtas, light sarees",
+      "texture_prompt": "Seamless tileable fabric swatch, Chanderi cotton-silk from Madhya Pradesh in pale gold, sheer ground with a glossy micro-sheen, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#d9c9a3",
+      "secondary_hex": "#b8a26a",
+      "gsm": 70,
+      "drape": 4,
+      "sheen": 4,
+      "opacity": 3,
+      "stretch": false,
+      "pricePerMeter": 640,
+      "minMeterage": 4,
+      "seasons": [
+        "summer",
+        "monsoon"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "venkatagiri",
+        "maheshwari",
+        "mysore-crepe",
+        "kosa",
+        "mangalgiri"
+      ],
+      "avoidWith": [
+        "banarasi",
+        "velvet",
+        "zari-brocade",
+        "denim"
+      ],
+      "tags": [
+        "sheer",
+        "handloom"
+      ]
+    },
+    {
+      "id": "maheshwari",
+      "name": "Maheshwari",
+      "category": "fabric",
+      "subcategory": "light",
+      "region": "Madhya Pradesh",
+      "usedFor": "sarees, dupattas",
+      "texture_prompt": "Seamless tileable fabric swatch, Maheshwari from Madhya Pradesh in rani pink, reversible border with cotton-silk crispness, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#8c3f5d",
+      "secondary_hex": "#d4af5a",
+      "gsm": 75,
+      "drape": 4,
+      "sheen": 3,
+      "opacity": 4,
+      "stretch": false,
+      "pricePerMeter": 720,
+      "minMeterage": 5.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "chanderi",
+        "venkatagiri",
+        "mysore-crepe",
+        "kosa",
+        "mangalgiri"
+      ],
+      "avoidWith": [
+        "banarasi",
+        "velvet",
+        "zari-brocade",
+        "denim"
+      ],
+      "tags": [
+        "handloom",
+        "reversible"
+      ]
+    },
+    {
+      "id": "rayon",
+      "name": "Rayon",
+      "category": "fabric",
+      "subcategory": "light",
+      "region": "Surat",
+      "usedFor": "everyday kurtas, palazzos",
+      "texture_prompt": "Seamless tileable fabric swatch, Rayon from Surat in green, soft viscose drape, matte, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#6b7f5c",
+      "secondary_hex": "#4c5c41",
+      "gsm": 80,
+      "drape": 5,
+      "sheen": 2,
+      "opacity": 4,
+      "stretch": false,
+      "pricePerMeter": 180,
+      "minMeterage": 2.5,
+      "seasons": [
+        "summer",
+        "monsoon"
+      ],
+      "occasions": [
+        "daily"
+      ],
+      "pairsWith": [
+        "mysore-crepe",
+        "maheshwari",
+        "chanderi",
+        "venkatagiri",
+        "modal"
+      ],
+      "avoidWith": [
+        "velvet",
+        "zari-brocade",
+        "denim"
+      ],
+      "tags": [
+        "budget",
+        "everyday"
+      ]
+    },
+    {
+      "id": "modal",
+      "name": "Modal",
+      "category": "fabric",
+      "subcategory": "light",
+      "region": "Surat",
+      "usedFor": "inner layers, casual wear",
+      "texture_prompt": "Seamless tileable fabric swatch, Modal from Surat in deep teal, silky-soft matte knit, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#0e6d74",
+      "secondary_hex": "#0a4f54",
+      "gsm": 100,
+      "drape": 4,
+      "sheen": 2,
+      "opacity": 5,
+      "stretch": true,
+      "pricePerMeter": 610,
+      "minMeterage": 2.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "daily"
+      ],
+      "pairsWith": [
+        "cambric",
+        "kosa",
+        "handloom-cotton",
+        "mysore-crepe",
+        "rayon"
+      ],
+      "avoidWith": [
+        "velvet",
+        "denim"
+      ],
+      "tags": [
+        "soft",
+        "stretch"
+      ]
+    },
+    {
+      "id": "venkatagiri",
+      "name": "Venkatagiri cotton",
+      "category": "fabric",
+      "subcategory": "cotton",
+      "region": "Andhra Pradesh",
+      "usedFor": "sarees, kurtas",
+      "texture_prompt": "Seamless tileable fabric swatch, Venkatagiri cotton from Andhra Pradesh in pale gold, fine handloom with jamdani zari butis, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#efe6d4",
+      "secondary_hex": "#c9962e",
+      "gsm": 70,
+      "drape": 4,
+      "sheen": 2,
+      "opacity": 4,
+      "stretch": false,
+      "pricePerMeter": 780,
+      "minMeterage": 5.5,
+      "seasons": [
+        "summer",
+        "monsoon"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "chanderi",
+        "maheshwari",
+        "mysore-crepe",
+        "kosa",
+        "mangalgiri"
+      ],
+      "avoidWith": [
+        "banarasi",
+        "velvet",
+        "zari-brocade",
+        "denim"
+      ],
+      "tags": [
+        "handloom",
+        "andhra",
+        "zari"
+      ]
+    },
+    {
+      "id": "mangalgiri",
+      "name": "Mangalgiri cotton",
+      "category": "fabric",
+      "subcategory": "cotton",
+      "region": "Andhra Pradesh",
+      "usedFor": "kurtas, blouses, sarees",
+      "texture_prompt": "Seamless tileable fabric swatch, Mangalgiri cotton from Andhra Pradesh in deep emerald green, coarse handloom with a wide plain border, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#1c6b4a",
+      "secondary_hex": "#c9962e",
+      "gsm": 120,
+      "drape": 3,
+      "sheen": 1,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 420,
+      "minMeterage": 3,
+      "seasons": [
+        "summer"
+      ],
+      "occasions": [
+        "daily",
+        "festive"
+      ],
+      "pairsWith": [
+        "matka",
+        "pochampally",
+        "kalamkari",
+        "kosa",
+        "mysore-crepe"
+      ],
+      "avoidWith": [
+        "velvet",
+        "denim"
+      ],
+      "tags": [
+        "handloom",
+        "andhra"
+      ]
+    },
+    {
+      "id": "kalamkari",
+      "name": "Kalamkari cotton",
+      "category": "fabric",
+      "subcategory": "cotton",
+      "region": "Andhra Pradesh",
+      "usedFor": "kurtas, blouses, jacket panels, dupattas",
+      "texture_prompt": "Seamless tileable fabric swatch, Kalamkari cotton from Andhra Pradesh in burnt orange, hand-painted mythological and floral block work, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#a15c2e",
+      "secondary_hex": "#1d3f5c",
+      "gsm": 130,
+      "drape": 3,
+      "sheen": 1,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 560,
+      "minMeterage": 3,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "pochampally",
+        "mangalgiri",
+        "matka",
+        "kosa",
+        "mysore-crepe"
+      ],
+      "avoidWith": [
+        "velvet",
+        "denim"
+      ],
+      "tags": [
+        "handpainted",
+        "andhra",
+        "heritage"
+      ]
+    },
+    {
+      "id": "pochampally",
+      "name": "Ikat (Pochampally)",
+      "category": "fabric",
+      "subcategory": "cotton",
+      "region": "Telangana",
+      "usedFor": "kurtas, skirts, jackets",
+      "texture_prompt": "Seamless tileable fabric swatch, Ikat (Pochampally) from Telangana in royal blue, blurred-edge resist-dyed geometric pattern, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#2f3e9e",
+      "secondary_hex": "#e0b83e",
+      "gsm": 125,
+      "drape": 3,
+      "sheen": 1,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 650,
+      "minMeterage": 3.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "mangalgiri",
+        "kalamkari",
+        "matka",
+        "kosa",
+        "mysore-crepe"
+      ],
+      "avoidWith": [
+        "velvet",
+        "denim"
+      ],
+      "tags": [
+        "ikat",
+        "telangana",
+        "handloom"
+      ]
+    },
+    {
+      "id": "khadi",
+      "name": "Khadi",
+      "category": "fabric",
+      "subcategory": "cotton",
+      "region": "Gujarat",
+      "usedFor": "kurtas, jackets, structured skirts",
+      "texture_prompt": "Seamless tileable fabric swatch, Khadi from Gujarat in pale gold, hand-spun irregular slub, matte, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#cfc2a4",
+      "secondary_hex": "#a89a7c",
+      "gsm": 150,
+      "drape": 3,
+      "sheen": 1,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 280,
+      "minMeterage": 3,
+      "seasons": [
+        "summer",
+        "winter"
+      ],
+      "occasions": [
+        "daily"
+      ],
+      "pairsWith": [
+        "linen",
+        "kalamkari",
+        "pochampally",
+        "mangalgiri",
+        "matka"
+      ],
+      "avoidWith": [
+        "denim"
+      ],
+      "tags": [
+        "handspun",
+        "matte"
+      ]
+    },
+    {
+      "id": "handloom-cotton",
+      "name": "Handloom cotton",
+      "category": "fabric",
+      "subcategory": "cotton",
+      "region": "Tamil Nadu",
+      "usedFor": "everyday kurtas, blouses, linings",
+      "texture_prompt": "Seamless tileable fabric swatch, Handloom cotton from Tamil Nadu in pale gold, plain weave with visible thread, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#e6d9bf",
+      "secondary_hex": "#c2b393",
+      "gsm": 110,
+      "drape": 3,
+      "sheen": 1,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 220,
+      "minMeterage": 3,
+      "seasons": [
+        "summer"
+      ],
+      "occasions": [
+        "daily"
+      ],
+      "pairsWith": [
+        "matka",
+        "modal",
+        "mangalgiri",
+        "cambric",
+        "kosa"
+      ],
+      "avoidWith": [
+        "velvet",
+        "denim"
+      ],
+      "tags": [
+        "budget",
+        "plain"
+      ]
+    },
+    {
+      "id": "muslin",
+      "name": "Muslin",
+      "category": "fabric",
+      "subcategory": "cotton",
+      "region": "West Bengal",
+      "usedFor": "inner layers, toiles, lining",
+      "texture_prompt": "Seamless tileable fabric swatch, Muslin from West Bengal in pale gold, ultra-fine sheer cotton, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#f3ead8",
+      "secondary_hex": "#d9cdb4",
+      "gsm": 50,
+      "drape": 5,
+      "sheen": 1,
+      "opacity": 2,
+      "stretch": false,
+      "pricePerMeter": 190,
+      "minMeterage": 3,
+      "seasons": [
+        "summer"
+      ],
+      "occasions": [
+        "daily"
+      ],
+      "pairsWith": [
+        "chanderi",
+        "venkatagiri",
+        "maheshwari",
+        "rayon",
+        "mysore-crepe"
+      ],
+      "avoidWith": [
+        "kanchipuram",
+        "banarasi",
+        "paithani",
+        "matka",
+        "velvet"
+      ],
+      "tags": [
+        "toile",
+        "lining"
+      ]
+    },
+    {
+      "id": "linen",
+      "name": "Linen",
+      "category": "fabric",
+      "subcategory": "cotton",
+      "region": "Kerala",
+      "usedFor": "summer kurtas, palazzos, shirts",
+      "texture_prompt": "Seamless tileable fabric swatch, Linen from Kerala in burnt orange, dry crisp weave that creases naturally, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#b8a88a",
+      "secondary_hex": "#8f8168",
+      "gsm": 160,
+      "drape": 3,
+      "sheen": 2,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 520,
+      "minMeterage": 3,
+      "seasons": [
+        "summer"
+      ],
+      "occasions": [
+        "daily"
+      ],
+      "pairsWith": [
+        "khadi",
+        "kalamkari",
+        "pochampally",
+        "mangalgiri",
+        "matka"
+      ],
+      "avoidWith": [
+        "denim"
+      ],
+      "tags": [
+        "breathable",
+        "crisp"
+      ]
+    },
+    {
+      "id": "cambric",
+      "name": "Cambric",
+      "category": "fabric",
+      "subcategory": "cotton",
+      "region": "Punjab",
+      "usedFor": "blouse lining, pockets",
+      "texture_prompt": "Seamless tileable fabric swatch, Cambric from Punjab in pale gold, smooth tight plain weave, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#efe6d4",
+      "secondary_hex": "#cfc2a4",
+      "gsm": 100,
+      "drape": 3,
+      "sheen": 1,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 140,
+      "minMeterage": 2,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "daily"
+      ],
+      "pairsWith": [
+        "modal",
+        "kosa",
+        "handloom-cotton",
+        "matka",
+        "mysore-crepe"
+      ],
+      "avoidWith": [
+        "velvet",
+        "denim"
+      ],
+      "tags": [
+        "lining",
+        "utility"
+      ]
+    },
+    {
+      "id": "denim",
+      "name": "Denim",
+      "category": "fabric",
+      "subcategory": "cotton",
+      "region": "Gujarat",
+      "usedFor": "casual jackets, skirts",
+      "texture_prompt": "Seamless tileable fabric swatch, Denim from Gujarat in navy blue, diagonal twill with an indigo warp, flat-lay top-down macro, studio soft even light, no folds, no shadows, no wrinkles, no garment, no hands, fills frame edge to edge, photographic texture detail",
+      "hex": "#2f4a6b",
+      "secondary_hex": "#1d2f45",
+      "gsm": 340,
+      "drape": 2,
+      "sheen": 1,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 460,
+      "minMeterage": 2,
+      "seasons": [
+        "winter"
+      ],
+      "occasions": [
+        "daily"
+      ],
+      "pairsWith": [
+        "linen",
+        "khadi",
+        "kalamkari",
+        "pochampally",
+        "mangalgiri"
+      ],
+      "avoidWith": [
+        "georgette",
+        "chiffon",
+        "rayon",
+        "muslin"
+      ],
+      "tags": [
+        "casual",
+        "twill"
+      ]
+    },
+    {
+      "id": "zari-gold",
+      "name": "Zari (gold)",
+      "category": "thread",
+      "subcategory": "thread",
+      "region": "India",
+      "usedFor": "border weaving, zardosi, motif fill",
+      "texture_prompt": "Zari (gold) in warm gold, flat metallic strip in warm gold, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#c9962e",
+      "secondary_hex": "#c9962e",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 160,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "wedding",
+        "reception"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "banarasi",
+        "paithani",
+        "dupion",
+        "matka",
+        "velvet"
+      ],
+      "avoidWith": [
+        "tissue",
+        "georgette",
+        "chiffon",
+        "organza",
+        "net"
+      ],
+      "tags": [
+        "metallic",
+        "bridal"
+      ]
+    },
+    {
+      "id": "zari-silver",
+      "name": "Zari (silver)",
+      "category": "thread",
+      "subcategory": "thread",
+      "region": "India",
+      "usedFor": "cooler embroidery, mirror outlines",
+      "texture_prompt": "Zari (silver) in light grey, flat metallic strip in cool white-silver, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#b9c0c9",
+      "secondary_hex": "#b9c0c9",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 150,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "metallic",
+        "cool"
+      ]
+    },
+    {
+      "id": "kasab",
+      "name": "Kasab thread",
+      "category": "thread",
+      "subcategory": "thread",
+      "region": "India",
+      "usedFor": "heavy zardosi, yoke work",
+      "texture_prompt": "Kasab thread in warm gold, thick metallic wound thread, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#d4af5a",
+      "secondary_hex": "#d4af5a",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 190,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "wedding",
+        "reception"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "banarasi",
+        "paithani",
+        "dupion",
+        "matka",
+        "velvet"
+      ],
+      "avoidWith": [
+        "tissue",
+        "georgette",
+        "chiffon",
+        "organza",
+        "net"
+      ],
+      "tags": [
+        "heavy",
+        "zardosi"
+      ]
+    },
+    {
+      "id": "resham",
+      "name": "Resham (silk floss)",
+      "category": "thread",
+      "subcategory": "thread",
+      "region": "India",
+      "usedFor": "thread work, satin stitch, floral fill",
+      "texture_prompt": "Resham (silk floss) in crimson red, lustrous smooth silk strands, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#b3202c",
+      "secondary_hex": "#b3202c",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 70,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "floral",
+        "sheen"
+      ]
+    },
+    {
+      "id": "resham-peacock",
+      "name": "Resham — peacock",
+      "category": "thread",
+      "subcategory": "thread",
+      "region": "India",
+      "usedFor": "motif fill, bird and vine work",
+      "texture_prompt": "Resham — peacock in deep teal, lustrous silk floss in peacock teal, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#0e6d74",
+      "secondary_hex": "#0e6d74",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 70,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "floral",
+        "motif"
+      ]
+    },
+    {
+      "id": "cotton-floss",
+      "name": "Cotton embroidery floss",
+      "category": "thread",
+      "subcategory": "thread",
+      "region": "India",
+      "usedFor": "kantha, chikankari, running stitch",
+      "texture_prompt": "Cotton embroidery floss in burnt orange, matte six-strand cotton, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#8a7a5c",
+      "secondary_hex": "#8a7a5c",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 30,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "matte",
+        "chikankari"
+      ]
+    },
+    {
+      "id": "dabka",
+      "name": "Dabka / bullion wire",
+      "category": "thread",
+      "subcategory": "thread",
+      "region": "India",
+      "usedFor": "raised outlining, coiled texture work",
+      "texture_prompt": "Dabka / bullion wire in warm gold, spring-coil metallic wire, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#c9a24e",
+      "secondary_hex": "#c9a24e",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 380,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "wedding",
+        "reception"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "banarasi",
+        "paithani",
+        "dupion",
+        "matka",
+        "velvet"
+      ],
+      "avoidWith": [
+        "tissue",
+        "georgette",
+        "chiffon",
+        "organza",
+        "net"
+      ],
+      "tags": [
+        "raised",
+        "zardosi"
+      ]
+    },
+    {
+      "id": "salma",
+      "name": "Salma",
+      "category": "thread",
+      "subcategory": "thread",
+      "region": "India",
+      "usedFor": "fine metallic outlining",
+      "texture_prompt": "Salma in ivory, thin coiled wire, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#cfd3d8",
+      "secondary_hex": "#cfd3d8",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 240,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "fine",
+        "outline"
+      ]
+    },
+    {
+      "id": "nakshi",
+      "name": "Nakshi thread",
+      "category": "thread",
+      "subcategory": "thread",
+      "region": "India",
+      "usedFor": "decorative knots, edging",
+      "texture_prompt": "Nakshi thread in burnt orange, twisted metallic cord, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#b98a2e",
+      "secondary_hex": "#b98a2e",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 300,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "knot",
+        "edging"
+      ]
+    },
+    {
+      "id": "tinsel",
+      "name": "Metallic tinsel thread",
+      "category": "thread",
+      "subcategory": "thread",
+      "region": "India",
+      "usedFor": "machine embroidery shimmer",
+      "texture_prompt": "Metallic tinsel thread in ivory, flat reflective filament, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#dfe6ee",
+      "secondary_hex": "#dfe6ee",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 90,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "machine",
+        "shimmer"
+      ]
+    },
+    {
+      "id": "jari-cord",
+      "name": "Jari cord",
+      "category": "thread",
+      "subcategory": "thread",
+      "region": "India",
+      "usedFor": "piping, corded outlines",
+      "texture_prompt": "Jari cord in burnt orange, round twisted gold cord, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#a16207",
+      "secondary_hex": "#a16207",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 4,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 120,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "piping",
+        "cord"
+      ]
+    },
+    {
+      "id": "chamki",
+      "name": "Round chamki bindis",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "allover scatter on net, dupatta fields",
+      "texture_prompt": "Round chamki bindis in warm gold, flat mirror-finish discs, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#d4af5a",
+      "secondary_hex": "#d4af5a",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 120,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "scatter",
+        "shine"
+      ]
+    },
+    {
+      "id": "teardrop-bindi",
+      "name": "Teardrop bindis",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "border rows, neckline edging",
+      "texture_prompt": "Teardrop bindis in crimson red, elongated foil drops, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#a11226",
+      "secondary_hex": "#a11226",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 110,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "border",
+        "foil"
+      ]
+    },
+    {
+      "id": "sequin-cup",
+      "name": "Sequins (cup)",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "dense allover shimmer, party wear",
+      "texture_prompt": "Sequins (cup) in warm gold, concave reflective discs, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#e0b83e",
+      "secondary_hex": "#e0b83e",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 180,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "shimmer",
+        "dense"
+      ]
+    },
+    {
+      "id": "kundan",
+      "name": "Kundan stones",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "bridal yokes, neckline centrepieces",
+      "texture_prompt": "Kundan stones in warm gold, uncut glass set in gold foil, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#e7c56a",
+      "secondary_hex": "#e7c56a",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 420,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "wedding",
+        "reception"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "banarasi",
+        "paithani",
+        "dupion",
+        "matka",
+        "velvet"
+      ],
+      "avoidWith": [
+        "tissue",
+        "georgette",
+        "chiffon",
+        "organza",
+        "net"
+      ],
+      "tags": [
+        "bridal",
+        "stone"
+      ]
+    },
+    {
+      "id": "shisha",
+      "name": "Shisha / mirror work",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "Kutch-style yokes, sleeve borders",
+      "texture_prompt": "Shisha / mirror work in peacock teal, round convex mirrors, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#9fb6bd",
+      "secondary_hex": "#9fb6bd",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 240,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "folk",
+        "mirror"
+      ]
+    },
+    {
+      "id": "pearl",
+      "name": "Freshwater pearls",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "necklines, sleeve edging, latkans",
+      "texture_prompt": "Freshwater pearls in ivory, soft off-white lustre, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#f4ecdd",
+      "secondary_hex": "#f4ecdd",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 360,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "classic",
+        "edging"
+      ]
+    },
+    {
+      "id": "bugle",
+      "name": "Bugle beads",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "fringe, linear fill",
+      "texture_prompt": "Bugle beads in near-black, short glass tubes, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#1d1a17",
+      "secondary_hex": "#1d1a17",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 200,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "fringe",
+        "linear"
+      ]
+    },
+    {
+      "id": "seed-bead",
+      "name": "Seed beads",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "outlines, dense bead fill",
+      "texture_prompt": "Seed beads in burnt orange, tiny uniform glass rounds, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#c96a4a",
+      "secondary_hex": "#c96a4a",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 210,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "outline",
+        "fill"
+      ]
+    },
+    {
+      "id": "cutdana",
+      "name": "Cutdana",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "sparkle fill between motifs",
+      "texture_prompt": "Cutdana in ivory, faceted cut glass beads, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#dfe6ee",
+      "secondary_hex": "#dfe6ee",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 260,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "sparkle",
+        "fill"
+      ]
+    },
+    {
+      "id": "antique-bead",
+      "name": "Antique gold beads",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "heritage-style borders",
+      "texture_prompt": "Antique gold beads in burnt orange, matte oxidised metal, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#8a7a5c",
+      "secondary_hex": "#8a7a5c",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 300,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "heritage",
+        "matte"
+      ]
+    },
+    {
+      "id": "rhinestone",
+      "name": "Rhinestones / chatons",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "high-shine borders, statement work",
+      "texture_prompt": "Rhinestones / chatons in ivory, faceted crystal, foil-backed, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#e8f0f7",
+      "secondary_hex": "#e8f0f7",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 600,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "wedding",
+        "reception"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "banarasi",
+        "paithani",
+        "dupion",
+        "matka",
+        "velvet"
+      ],
+      "avoidWith": [
+        "tissue",
+        "georgette",
+        "chiffon",
+        "organza",
+        "net"
+      ],
+      "tags": [
+        "crystal",
+        "statement"
+      ]
+    },
+    {
+      "id": "gota-motif",
+      "name": "Gota patti motifs",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "Rajasthani appliqué on sleeves, hems",
+      "texture_prompt": "Gota patti motifs in warm gold, flat gold ribbon shapes, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#e0b83e",
+      "secondary_hex": "#e0b83e",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 280,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "appliqué",
+        "rajasthani"
+      ]
+    },
+    {
+      "id": "kasu",
+      "name": "Kasu (coin) motifs",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "temple-style borders, waistbands",
+      "texture_prompt": "Kasu (coin) motifs in warm gold, small stamped gold coins, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#c9962e",
+      "secondary_hex": "#c9962e",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 520,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "wedding",
+        "reception"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "banarasi",
+        "paithani",
+        "dupion",
+        "matka",
+        "velvet"
+      ],
+      "avoidWith": [
+        "tissue",
+        "georgette",
+        "chiffon",
+        "organza",
+        "net"
+      ],
+      "tags": [
+        "temple",
+        "coin"
+      ]
+    },
+    {
+      "id": "stone-patti",
+      "name": "Stone patti strips",
+      "category": "embellish",
+      "subcategory": "embellish",
+      "region": "India",
+      "usedFor": "pre-set stone lines for necklines",
+      "texture_prompt": "Stone patti strips in pale gold, linear stone-and-thread strip, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#d9c9a3",
+      "secondary_hex": "#d9c9a3",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 340,
+      "minMeterage": 1,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "linear",
+        "neckline"
+      ]
+    },
+    {
+      "id": "gota-border",
+      "name": "Gota patti border",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "hem and sleeve edging",
+      "texture_prompt": "Gota patti border in warm gold, flat woven gold ribbon, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#e0b83e",
+      "secondary_hex": "#e0b83e",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 140,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "festive",
+        "rajasthani"
+      ]
+    },
+    {
+      "id": "zari-lace",
+      "name": "Zari lace border",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "saree and lehenga hems",
+      "texture_prompt": "Zari lace border in warm gold, woven metallic edging with a motif repeat, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#c9962e",
+      "secondary_hex": "#c9962e",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 260,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "wedding",
+        "reception"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "banarasi",
+        "paithani",
+        "dupion",
+        "matka",
+        "velvet"
+      ],
+      "avoidWith": [
+        "tissue",
+        "georgette",
+        "chiffon",
+        "organza",
+        "net"
+      ],
+      "tags": [
+        "bridal",
+        "edging"
+      ]
+    },
+    {
+      "id": "crochet-lace",
+      "name": "Crochet lace",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "blouse edging, sleeve frills",
+      "texture_prompt": "Crochet lace in pale gold, openwork cotton, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#efe6d4",
+      "secondary_hex": "#efe6d4",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 180,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "handmade",
+        "daily"
+      ]
+    },
+    {
+      "id": "pompom",
+      "name": "Pom-pom trim",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "dupatta edges, casual hems",
+      "texture_prompt": "Pom-pom trim in rani pink, small woollen balls on tape, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#d0326e",
+      "secondary_hex": "#d0326e",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 95,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "playful",
+        "casual"
+      ]
+    },
+    {
+      "id": "latkan",
+      "name": "Tassels / latkan",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "dupatta corners, blouse ties",
+      "texture_prompt": "Tassels / latkan in crimson red, bunched thread with a bead cap, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#b3202c",
+      "secondary_hex": "#b3202c",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 130,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "hem",
+        "corner"
+      ]
+    },
+    {
+      "id": "piping",
+      "name": "Piping cord",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "seam definition, neckline edges",
+      "texture_prompt": "Piping cord in near-black, narrow covered cord, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#141210",
+      "secondary_hex": "#141210",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 70,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "seam",
+        "edge"
+      ]
+    },
+    {
+      "id": "fringe",
+      "name": "Fringe trim",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "hem movement, sleeve drama",
+      "texture_prompt": "Fringe trim in burnt orange, hanging thread curtain, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#a15c2e",
+      "secondary_hex": "#a15c2e",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 110,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "movement",
+        "drama"
+      ]
+    },
+    {
+      "id": "velvet-ribbon",
+      "name": "Velvet ribbon",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "waistbands, contrast edging",
+      "texture_prompt": "Velvet ribbon in deep magenta, plush pile tape, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#4a0f24",
+      "secondary_hex": "#4a0f24",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 160,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "plush",
+        "waist"
+      ]
+    },
+    {
+      "id": "satin-ribbon",
+      "name": "Satin ribbon",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "ties, bows, drawstrings",
+      "texture_prompt": "Satin ribbon in royal blue, smooth glossy tape, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#274690",
+      "secondary_hex": "#274690",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 80,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "tie",
+        "gloss"
+      ]
+    },
+    {
+      "id": "potli-button",
+      "name": "Potli buttons",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "front closures, cuff detail",
+      "texture_prompt": "Potli buttons in deep wine red, hand-knotted fabric ball, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#7c1f2e",
+      "secondary_hex": "#7c1f2e",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 120,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "closure",
+        "classic"
+      ]
+    },
+    {
+      "id": "hook-eye",
+      "name": "Hook-and-eye set",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "blouse closure",
+      "texture_prompt": "Hook-and-eye set in charcoal grey, small metal fastener, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#8a8a8a",
+      "secondary_hex": "#8a8a8a",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 45,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "closure",
+        "utility"
+      ]
+    },
+    {
+      "id": "invisible-zip",
+      "name": "Invisible zip",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "side seams, bodice back",
+      "texture_prompt": "Invisible zip in charcoal grey, concealed slider, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#6f6659",
+      "secondary_hex": "#6f6659",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 60,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "closure",
+        "utility"
+      ]
+    },
+    {
+      "id": "cancan",
+      "name": "Cancan net lining",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "skirt volume",
+      "texture_prompt": "Cancan net lining in pale gold, stiff layered mesh, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#efe6d4",
+      "secondary_hex": "#efe6d4",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 190,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "volume",
+        "lining"
+      ]
+    },
+    {
+      "id": "canvas-interlining",
+      "name": "Canvas interlining",
+      "category": "trim",
+      "subcategory": "trim",
+      "region": "India",
+      "usedFor": "structured bodices, collars",
+      "texture_prompt": "Canvas interlining in pale gold, rigid woven backing, many identical pieces scattered evenly edge to edge, macro product shot, pure white seamless background, top-down, sharp detail, no props, no hands, even light",
+      "hex": "#cfc2a4",
+      "secondary_hex": "#cfc2a4",
+      "gsm": 0,
+      "drape": 0,
+      "sheen": 3,
+      "opacity": 5,
+      "stretch": false,
+      "pricePerMeter": 150,
+      "minMeterage": 1.5,
+      "seasons": [
+        "summer",
+        "monsoon",
+        "winter"
+      ],
+      "occasions": [
+        "festive",
+        "daily"
+      ],
+      "pairsWith": [
+        "kanchipuram",
+        "uppada",
+        "paithani",
+        "dupion",
+        "matka",
+        "tissue"
+      ],
+      "avoidWith": [],
+      "tags": [
+        "structure",
+        "backing"
+      ]
+    }
+  ]
+}

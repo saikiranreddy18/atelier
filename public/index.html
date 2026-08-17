@@ -188,7 +188,7 @@ h1,h2,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
     <!-- left: specimen book -->
     <aside class="rail" aria-label="Material catalog">
       <h2>The catalog</h2>
-      <p class="sub">Real materials. Drag one onto a zone of the garment.</p>
+      <p class="sub">Every swatch AI-generated from its own texture prompt. Drag one onto a zone.<br><span class="mono" id="railNote" style="font-size:10.5px">loading…</span></p>
       <div class="cats" id="cats"></div>
       <div class="swatches" id="swatches"></div>
     </aside>
@@ -198,7 +198,18 @@ h1,h2,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
       <span class="stagelbl" id="stageLbl">Stage 2 — choose a silhouette</span>
       <div id="concepts"></div>
       <div id="garmentWrap" class="hide">
-        <svg id="garment" viewBox="0 0 300 470" aria-label="Garment canvas with droppable zones"><defs id="patDefs"></defs><g id="zoneG"></g><g id="constructionG" class="construction"></g></svg>
+        <svg id="garment" viewBox="0 0 300 470" aria-label="Garment canvas with droppable zones">
+          <defs id="patDefs">
+            <linearGradient id="fold" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#000" stop-opacity=".24"/>
+              <stop offset=".17" stop-color="#000" stop-opacity="0"/>
+              <stop offset=".38" stop-color="#fff" stop-opacity=".20"/>
+              <stop offset=".60" stop-color="#000" stop-opacity="0"/>
+              <stop offset=".85" stop-color="#000" stop-opacity=".15"/>
+              <stop offset="1" stop-color="#000" stop-opacity=".28"/>
+            </linearGradient>
+          </defs>
+          <g id="zoneG"></g><g id="constructionG" class="construction"></g></svg>
         <div id="zoneTip"></div>
       </div>
       <p class="canvashint" id="canvasHint">Three construction studies, drawn from your brief. Pick one to take to the workbench.</p>
@@ -240,74 +251,17 @@ h1,h2,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
 
 <script>
 /* ================================ catalog (61 materials) ================================ */
-const M=(id,name,cat,hex,price,gsm,drape,tags)=>({id,name,cat,hex,price,gsm,drape,tags});
-const CATALOG=[
- // fabrics — price ₹/m, drape 1 stiff → 5 fluid
- M("kanchi-silk","Kanchipuram silk","fabric","#7c1f2e",2400,120,2,"bridal grand zari-friendly"),
- M("tussar","Tussar silk","fabric","#b8863b",950,90,3,"earthy festive"),
- M("raw-silk","Raw silk","fabric","#c8873b",780,110,2,"structured blouse"),
- M("banarasi","Banarasi brocade","fabric","#8c1f2f",1900,140,1,"bridal heavy woven-gold"),
- M("georgette","Georgette","fabric","#c05c77",420,60,5,"flowy light summer"),
- M("chiffon","Chiffon","fabric","#d98aa6",380,45,5,"sheer light dupatta"),
- M("organza","Organza","fabric","#c7a8c8",520,50,4,"crisp sheer modern"),
- M("chanderi","Chanderi","fabric","#d9c9a3",640,70,4,"sheer-glow festive"),
- M("velvet","Velvet","fabric","#4a0f24",880,320,1,"winter royal heavy"),
- M("khadi","Khadi cotton","fabric","#cfc2a4",280,150,3,"handloom daily breathable"),
- M("mul-cotton","Mul cotton","fabric","#efe6d4",220,80,5,"soft summer daily"),
- M("crepe","Crepe","fabric","#9e5b6c",460,85,4,"office modern"),
- M("satin","Satin","fabric","#274690",540,95,4,"sheen party"),
- M("net","Embroidery net","fabric","#e8dccb",350,40,4,"overlay sleeves"),
- M("linen","Linen","fabric","#b8a88a",520,160,3,"summer breathable"),
- M("modal","Modal silk","fabric","#0e6d74",610,100,4,"soft fall modern"),
- // threads — ₹/reel-meterage equivalent
- M("zari-gold","Gold zari","thread","#c9962e",160,0,0,"border bridal metallic"),
- M("zari-silver","Silver zari","thread","#b9c0c9",150,0,0,"metallic modern"),
- M("zari-copper","Antique copper zari","thread","#a15c2e",140,0,0,"temple antique"),
- M("resham-red","Resham — red","thread","#b3202c",60,0,0,"floral dense"),
- M("resham-peacock","Resham — peacock","thread","#0e6d74",60,0,0,"motif bird"),
- M("resham-ivory","Resham — ivory","thread","#efe6d4",60,0,0,"tone-on-tone chikankari"),
- M("kasab","Kasab thread","thread","#d4af5a",90,0,0,"fine metallic"),
- M("cotton-thread","Cotton thread","thread","#8a7a5c",30,0,0,"kantha running"),
- M("silk-floss","Silk floss","thread","#6b3fa0",80,0,0,"sheen satin-stitch"),
- // embellishments — ₹/packet applied per zone
- M("bindi-gold","Gold bindis","embellish","#d4af5a",120,0,0,"scatter tiny"),
- M("bindi-red","Kumkum bindis","embellish","#a11226",110,0,0,"scatter traditional"),
- M("sequin-gold","Gold sequins","embellish","#e0b83e",180,0,0,"shimmer dense"),
- M("sequin-rose","Rose sequins","embellish","#d0326e",180,0,0,"shimmer party"),
- M("mirror-round","Round mirrors","embellish","#9fb6bd",240,0,0,"sheesha folk"),
- M("mirror-shard","Shard mirrors","embellish","#8ea3ad",260,0,0,"abstract modern"),
- M("kundan","Kundan stones","embellish","#e7c56a",420,0,0,"bridal stone"),
- M("pearl-seed","Seed pearls","embellish","#f4ecdd",360,0,0,"edging classic"),
- M("pearl-baroque","Baroque pearls","embellish","#e9ddc6",480,0,0,"statement"),
- M("beads-jet","Jet beads","embellish","#1d1a17",200,0,0,"outline modern"),
- M("beads-coral","Coral beads","embellish","#c96a4a",210,0,0,"folk warm"),
- M("stone-emerald","Emerald cut-stones","embellish","#1c6b4a",520,0,0,"royal accent"),
- M("stone-ruby","Ruby cut-stones","embellish","#8c1f2f",520,0,0,"royal accent"),
- M("dabka","Dabka coil","embellish","#c9a24e",380,0,0,"zardozi raised"),
- M("nakshi","Nakshi spangles","embellish","#b98a2e",300,0,0,"antique texture"),
- M("badla","Badla wire","embellish","#cfd3d8",280,0,0,"mukaish dots"),
- M("swarovski","Crystal drops","embellish","#dfe6ee",600,0,0,"sparkle modern"),
- M("shell","Cowrie shells","embellish","#efe2c8",160,0,0,"boho folk"),
- // trims — ₹/m
- M("lace-chantilly","Chantilly lace","trim","#efe6d4",320,0,0,"edging bridal"),
- M("lace-crochet","Crochet lace","trim","#d9c9a3",180,0,0,"handmade daily"),
- M("gota","Gota patti ribbon","trim","#e0b83e",140,0,0,"festive rajasthani"),
- M("piping-gold","Gold piping","trim","#c9962e",90,0,0,"clean edge"),
- M("piping-contrast","Contrast piping","trim","#141210",70,0,0,"modern edge"),
- M("tassel-silk","Silk tassels","trim","#b3202c",130,0,0,"latkan hem"),
- M("tassel-pearl","Pearl tassels","trim","#e9ddc6",210,0,0,"latkan bridal"),
- M("fringe","Thread fringe","trim","#a15c2e",110,0,0,"boho hem"),
- M("pompom","Pompom lace","trim","#d0326e",95,0,0,"playful daily"),
- M("scallop","Scalloped border","trim","#c9a24e",260,0,0,"edge bridal"),
- M("temple-border","Temple border","trim","#8c1f2f",340,0,0,"kanchi traditional"),
- M("zip-invisible","Invisible zip","trim","#6f6659",60,0,0,"construction"),
- M("button-potli","Potli buttons","trim","#7c1f2e",120,0,0,"closure classic"),
- M("button-metal","Antique metal buttons","trim","#8a7a5c",150,0,0,"sherwani closure"),
- M("hook-eye","Hook & eye tape","trim","#6f6659",45,0,0,"construction"),
- M("belt-fab","Fabric waist belt","trim","#141210",240,0,0,"modern cinch"),
- M("dori","Silk dori","trim","#b3202c",70,0,0,"back-tie"),
- M("kiran","Kiran fringe","trim","#d4af5a",290,0,0,"dupatta bridal edge"),
-];
+/* the catalog is generated, not hardcoded: tools/seed-catalog.mjs writes the
+   metadata, tools/seed-swatches.mjs generates one AI swatch per entry, and the
+   app loads whatever that pipeline produced. `cat` mirrors `category` so the
+   rail, the spec sheet and the co-designer all read the same record.        */
+let CATALOG=[];
+async function loadCatalog(){
+  const j=await(await fetch("/api/catalog")).json();
+  CATALOG=j.materials.map(m=>({...m,cat:m.category,price:m.pricePerMeter}));
+  CATALOG.forEach(trueHex);
+  return j;
+}
 const CATS=[["fabric","Fabrics"],["thread","Threads"],["embellish","Embellish"],["trim","Trims"]];
 
 /* texture recipe per category, built from hex — real-looking tiles without images */
@@ -318,17 +272,45 @@ function texCSS(m){
   if(m.cat==="embellish")return`background:#efe8dc;background-image:radial-gradient(circle at 30% 30%,${h} 2.6px,transparent 3px),radial-gradient(circle at 72% 68%,${h} 2.2px,transparent 2.7px);background-size:14px 14px,17px 17px`;
   return`background:linear-gradient(180deg,transparent 0 34%,${h} 34% 66%,transparent 66%),repeating-linear-gradient(90deg,rgba(0,0,0,.12) 0 1px,transparent 1px 4px),#efe8dc`;
 }
-/* SVG pattern per material for zone fills */
+/* SVG pattern per material for zone fills.
+   A generated swatch tiles as a real photograph — cropped to the centre so a
+   woven selvedge on the edge of the frame never repeats across the garment.
+   Without one (Pass B still running) it falls back to the drawn texture.     */
 function patternFor(m){
   const id="p-"+m.id;
   if(document.getElementById(id))return`url(#${id})`;
-  const d=document.getElementById("patDefs"); let inner="";
+  const d=document.getElementById("patDefs");
+  if(m.swatch){
+    const tile=m.cat==="fabric"?26:16;
+    d.insertAdjacentHTML("beforeend",
+      `<pattern id="${id}" width="${tile}" height="${tile}" patternUnits="userSpaceOnUse">
+         <image href="${m.swatch}" x="${-tile*0.32}" y="${-tile*0.32}" width="${tile*1.64}" height="${tile*1.64}" preserveAspectRatio="xMidYMid slice"/>
+       </pattern>`);
+    return`url(#${id})`;
+  }
+  let inner="";
   if(m.cat==="fabric")inner=`<rect width="8" height="8" fill="${m.hex}"/><path d="M0 2h8M0 5h8" stroke="rgba(255,255,255,.16)" stroke-width="1"/><path d="M2 0v8M5 0v8" stroke="rgba(0,0,0,.10)" stroke-width="1"/>`;
   else if(m.cat==="thread")inner=`<rect width="8" height="8" fill="rgba(247,243,236,.15)"/><path d="M-1 7L7 -1M1 9L9 1" stroke="${m.hex}" stroke-width="1.6"/>`;
   else if(m.cat==="embellish")inner=`<rect width="8" height="8" fill="rgba(247,243,236,.06)"/><circle cx="4" cy="4" r="1.6" fill="${m.hex}"/><circle cx="4" cy="4" r=".6" fill="rgba(255,255,255,.8)"/>`;
   else inner=`<rect width="8" height="8" fill="rgba(247,243,236,.06)"/><rect y="2.5" width="8" height="3" fill="${m.hex}"/>`;
   d.insertAdjacentHTML("beforeend",`<pattern id="${id}" width="8" height="8" patternUnits="userSpaceOnUse">${inner}</pattern>`);
   return`url(#${id})`;
+}
+/* the swatch is the source of truth for colour — read the real dominant hex off
+   the generated pixels so a chip never advertises a shade the cloth isn't */
+function trueHex(m){
+  if(!m.swatch)return;
+  const img=new Image();
+  img.onload=()=>{
+    const c=document.createElement("canvas"); c.width=c.height=24;
+    const x=c.getContext("2d",{willReadFrequently:true});
+    x.drawImage(img,img.width*.25,img.height*.25,img.width*.5,img.height*.5,0,0,24,24);
+    const d=x.getImageData(0,0,24,24).data; let r=0,g=0,b=0;
+    for(let i=0;i<d.length;i+=4){r+=d[i];g+=d[i+1];b+=d[i+2]}
+    const n=d.length/4, h=v=>Math.round(v/n).toString(16).padStart(2,"0");
+    m.hex="#"+h(r)+h(g)+h(b);
+  };
+  img.src=m.swatch;
 }
 const drapeWord=d=>["","stiff","structured","balanced","soft","fluid"][d]||"—";
 
@@ -341,15 +323,35 @@ const ZONES=[
  {id:"border",label:"Hem border",m:3.0},
  {id:"dupatta",label:"Dupatta",m:2.5},
 ];
-/* three construction studies (Stage 2) — different skirt geometry */
+/* ---- garment construction, drawn like a real design sketch ----
+   choli cropped at the waist seam (y=199), set-in sleeves, skirt flaring from
+   the same seam, hem border as a true band, dupatta draped shoulder→hip.      */
+const BODICE="M112 104 C116 97 124 93 132 92 C137 114 163 114 168 92 C176 93 184 97 188 104 "
+            +"C192 132 191 166 188 199 L112 199 C109 166 108 132 112 104 Z";
+const SLEEVES="M112 104 C95 111 85 128 81 150 L77 174 L103 180 L110 151 C110 131 111 116 112 104 Z "
+             +"M188 104 C205 111 215 128 219 150 L223 174 L197 180 L190 151 C190 131 189 116 188 104 Z";
+/* two subpaths: the sash across the body, then the fall down the right side */
+const DUPATTA="M117 98 C133 150 167 195 204 224 L200 246 C160 218 124 170 105 112 Z "
+             +"M204 224 C210 276 212 330 211 374 L188 371 C187 330 184 281 179 234 Z";
+const NECKLINE="M132 93 C137 115 163 115 168 93";
+
+/* three construction studies (Stage 2) — the skirt geometry is what differs */
 const SILHOUETTES=[
- {id:"aline",name:"A-line",desc:"clean flare, quiet volume",skirt:"M85 215 L60 435 Q150 452 240 435 L215 215 Z"},
- {id:"kali",name:"Twelve-kali",desc:"panelled, full circular flare",skirt:"M85 215 L38 437 Q150 462 262 437 L215 215 Z",kali:true},
- {id:"mermaid",name:"Mermaid",desc:"fitted to knee, then flare",skirt:"M85 215 Q95 330 78 380 L52 440 Q150 460 248 440 L222 380 Q205 330 215 215 Z"},
+ {id:"aline",name:"A-line",desc:"clean flare, quiet volume",
+  skirt:"M112 199 L188 199 C196 262 208 350 224 431 L76 431 C92 350 104 262 112 199 Z",
+  border:"M79 397 L221 397 L224 431 L76 431 Z",
+  seams:"M150 200 L150 431"},
+ {id:"kali",name:"Twelve-kali",desc:"panelled, full circular flare",
+  skirt:"M112 199 L188 199 C201 266 223 356 249 435 L51 435 C77 356 99 266 112 199 Z",
+  border:"M57 400 L243 400 L249 435 L51 435 Z",
+  seams:"M137 200 C132 280 120 360 99 434 M150 200 L150 435 M163 200 C168 280 180 360 201 434"},
+ {id:"mermaid",name:"Mermaid",desc:"fitted to knee, then flare",
+  skirt:"M112 199 L188 199 C190 251 186 301 182 341 C196 381 206 411 217 439 L83 439 C94 411 104 381 118 341 C114 301 110 251 112 199 Z",
+  border:"M87 405 L213 405 L217 439 L83 439 Z",
+  seams:"M150 200 L150 439 M118 341 L182 341"},
 ];
-const BODICE="M150 62 C170 62 180 74 181 88 C182 98 187 103 196 108 C209 115 214 128 215 143 L215 215 L85 215 L85 143 C86 128 91 115 104 108 C113 103 118 98 119 88 C120 74 130 62 150 62 Z";
-const SLEEVES="M85 148 C62 155 52 172 48 196 L44 236 L70 242 L85 205 Z M215 148 C238 155 248 172 252 196 L256 236 L230 242 L215 205 Z";
-const DUPATTA="M196 108 C232 128 250 190 246 268 L258 430 L282 428 L280 250 C278 165 252 112 214 96 Z";
+/* princess seams + waist seam — the lines a tailor actually cuts to */
+const CONSTRUCTION="M112 199 L188 199 M132 101 C130 140 130 170 131 199 M168 101 C170 140 170 170 169 199";
 
 /* ================================ state ================================ */
 const state={spec:null,budget:null,silhouette:null,zones:{},history:[],versions:[],person:null,busy:false};
@@ -404,15 +406,21 @@ function enterStudio(){
     el.onclick=()=>chooseSilhouette(sil);
     box.appendChild(el);
   });
-  buildRail();
+  loadCatalog().then(j=>{
+    buildRail();
+    const gen=j.materials.filter(m=>m.swatch).length;
+    $("#railNote").textContent=`${j.count} materials · ${gen} AI swatches generated`;
+  }).catch(()=>{$("#railNote").textContent="catalog unavailable — is the server running?"});
   loadBalance();
 }
 function conceptSVG(sil){
-  const line=`fill="none" stroke="#141210" stroke-width="1.4"`;
+  const line=`fill="#fffdf9" stroke="#141210" stroke-width="1.4"`;
   const dash=`fill="none" stroke="#6f6659" stroke-width=".8" stroke-dasharray="4 3"`;
-  return`<path d="${BODICE}" ${line}/><path d="${SLEEVES}" ${line}/><path d="${sil.skirt}" ${line}/><path d="${DUPATTA}" ${dash}/>
-  <path d="M85 180 L215 180 M110 62 L110 40 M190 62 L190 40" ${dash}/>
-  ${sil.kali?`<path d="M110 218 L96 440 M150 220 L150 452 M190 218 L204 440" ${dash}/>`:""}`;
+  return`<path d="${sil.skirt}" ${line}/><path d="${sil.border}" fill="none" stroke="#141210" stroke-width="1.4"/>
+  <path d="${SLEEVES}" ${line}/><path d="${BODICE}" ${line}/>
+  <path d="${NECKLINE}" fill="none" stroke="#141210" stroke-width="1.2"/>
+  <path d="${DUPATTA}" fill="rgba(217,119,6,.07)" stroke="#6f6659" stroke-width=".9" stroke-dasharray="4 3"/>
+  <path d="${CONSTRUCTION}" ${dash}/><path d="${sil.seams}" ${dash}/>`;
 }
 function chooseSilhouette(sil){
   state.silhouette=sil;
@@ -427,26 +435,31 @@ function zonePath(z){
   if(z==="sleeves")return SLEEVES;
   if(z==="skirt")return state.silhouette.skirt;
   if(z==="dupatta")return DUPATTA;
-  /* border strip follows the hem of the current skirt */
-  if(state.silhouette.id==="kali")return"M38 437 Q150 462 262 437 L262 415 Q150 440 38 415 Z";
-  if(state.silhouette.id==="mermaid")return"M52 440 Q150 460 248 440 L248 418 Q150 438 52 418 Z";
-  return"M60 435 Q150 452 240 435 L240 413 Q150 430 60 413 Z";
+  return state.silhouette.border; /* the hem band of the chosen skirt */
 }
+const SVGNS="http://www.w3.org/2000/svg";
 function drawGarment(){
   const g=$("#zoneG"),c=$("#constructionG"); g.innerHTML=""; c.innerHTML="";
-  const order=["dupatta","skirt","border","sleeves","bodice"];
-  order.forEach(zid=>{
-    const z=ZONES.find(x=>x.id===zid);
+  /* back-to-front: skirt, its hem band, sleeves behind the body, choli, dupatta over all */
+  ["skirt","border","sleeves","bodice","dupatta"].forEach(zid=>{
     const mat=state.zones[zid]?CATALOG.find(m=>m.id===state.zones[zid]):null;
-    const fill=mat?patternFor(mat):"rgba(255,253,249,.85)";
-    const p=document.createElementNS("http://www.w3.org/2000/svg","path");
+    const p=document.createElementNS(SVGNS,"path");
     p.setAttribute("d",zonePath(zid)); p.setAttribute("class","zone"); p.dataset.zone=zid;
-    p.setAttribute("fill",fill); p.setAttribute("stroke","#141210"); p.setAttribute("stroke-width","1.3");
+    p.setAttribute("fill",mat?patternFor(mat):"rgba(255,253,249,.9)");
+    p.setAttribute("stroke","#141210"); p.setAttribute("stroke-width","1.2");
+    if(zid==="dupatta")p.setAttribute("opacity",mat?".92":".55");
     if(mat)p.setAttribute("data-mat",mat.id);
     g.appendChild(p);
+    /* cloth shading on top of the same shape — turns flat vector into fabric */
+    const sh=document.createElementNS(SVGNS,"path");
+    sh.setAttribute("d",zonePath(zid)); sh.setAttribute("fill","url(#fold)");
+    sh.setAttribute("pointer-events","none"); c.appendChild(sh);
   });
-  c.innerHTML=`<path d="M85 180 L215 180" fill="none" stroke="#6f6659" stroke-width=".8" stroke-dasharray="4 3"/>
-  ${state.silhouette.kali?`<path d="M110 218 L96 440 M150 220 L150 452 M190 218 L204 440" fill="none" stroke="#6f6659" stroke-width=".8" stroke-dasharray="4 3"/>`:""}`;
+  /* seams a tailor cuts to, drawn over the cloth */
+  c.insertAdjacentHTML("beforeend",
+    `<path d="${CONSTRUCTION}" fill="none" stroke="rgba(20,18,16,.45)" stroke-width=".9" stroke-dasharray="5 4"/>
+     <path d="${state.silhouette.seams}" fill="none" stroke="rgba(20,18,16,.32)" stroke-width=".9" stroke-dasharray="5 4"/>
+     <path d="${NECKLINE}" fill="none" stroke="rgba(20,18,16,.55)" stroke-width="1.1"/>`);
   wireZones();
 }
 function wireZones(){
@@ -475,9 +488,10 @@ function buildRail(){
   const box=$("#swatches"); box.innerHTML="";
   CATALOG.filter(m=>m.cat===activeCat).forEach(m=>{
     const el=document.createElement("div"); el.className="swatch"; el.draggable=true; el.dataset.id=m.id;
-    el.innerHTML=`<div class="tex" style="${texCSS(m)}"></div><div class="nm">${m.name}</div>
+    const tex=m.thumb?`background-image:url(${m.thumb});background-size:cover;background-position:center`:texCSS(m);
+    el.innerHTML=`<div class="tex" style="${tex}"></div><div class="nm">${m.name}</div>
       <div class="pr">₹${m.price}${m.cat==="fabric"||m.cat==="trim"?"/m":""}</div>
-      <div class="meta">${m.gsm?`${m.gsm} gsm · ${drapeWord(m.drape)} drape<br>`:""}${m.tags.split(" ").slice(0,3).join(" · ")}</div>`;
+      <div class="meta">${m.gsm?`${m.gsm} gsm · ${drapeWord(m.drape)} drape<br>`:""}<b>${m.usedFor}</b><br>${m.region}</div>`;
     el.addEventListener("dragstart",e=>{
       e.dataTransfer.setData("text/plain",m.id);
       const img=new Image(); img.src="data:image/gif;base64,R0lGODlhAQABAAAAACw="; e.dataTransfer.setDragImage(img,0,0);
@@ -490,7 +504,7 @@ function buildRail(){
 /* custom ghost that follows the cursor at .9 scale */
 const ghost=$("#ghost");
 let ghostMove=null;
-function ghostOn(m){ghost.style.cssText+=";display:block;"+texCSS(m);ghostMove=e=>{ghost.style.left=e.clientX+"px";ghost.style.top=e.clientY+"px"};document.addEventListener("dragover",ghostMove)}
+function ghostOn(m){ghost.style.cssText+=";display:block;"+(m.thumb?`background-image:url(${m.thumb});background-size:cover`:texCSS(m));ghostMove=e=>{ghost.style.left=e.clientX+"px";ghost.style.top=e.clientY+"px"};document.addEventListener("dragover",ghostMove)}
 function ghostOff(){ghost.style.display="none";if(ghostMove)document.removeEventListener("dragover",ghostMove)}
 
 /* zone dropping */
@@ -552,30 +566,52 @@ function renderSpec(){
 }
 
 /* ================================ co-designer (rule engine, honest) ================================ */
+const byId=id=>CATALOG.find(m=>m.id===id);
+const nameOf=id=>byId(id)?.name||id;
+/* every complaint cites the catalog's own numbers or its avoidWith list, so the
+   co-designer can never invent a material or a reason that isn't in the data */
 function critique(lastZone,lastMat){
   const box=$("#critique"); const notes=[];
-  const get=z=>state.zones[z]?CATALOG.find(m=>m.id===state.zones[z]):null;
-  const bod=get("bodice"),slv=get("sleeves"),skt=get("skirt"),dup=get("dupatta");
-  if(slv&&bod&&slv.gsm>250&&bod.gsm&&bod.gsm<80)
-    notes.push(["warn",`${slv.name} on the sleeves adds weight a ${bod.name} bodice can't carry — try organza or chanderi there.`]);
+  const get=z=>state.zones[z]?byId(state.zones[z]):null;
+  const bod=get("bodice"),slv=get("sleeves"),skt=get("skirt"),dup=get("dupatta"),bor=get("border");
+  const placed=Object.entries(state.zones).map(([z,id])=>[z,byId(id)]).filter(([,m])=>m);
+
+  /* avoidWith is a seam-level judgement, so only zones actually stitched together
+     are compared. A heavy skirt under a floating dupatta is the whole point of a
+     lehenga — flagging that would be noise, not advice. */
+  const SEAMED=[["bodice","sleeves"],["bodice","skirt"],["skirt","border"]];
+  for(const [a,b] of SEAMED){
+    const m=get(a),m2=get(b); if(!m||!m2)continue;
+    if(!m.avoidWith?.includes(m2.id)&&!m2.avoidWith?.includes(m.id))continue;
+    const alt=(m2.pairsWith||[]).find(id=>byId(id)&&id!==m.id);
+    notes.push(["warn",`${m.name} seams badly to ${m2.name} at the ${a}/${b} join — ${m.gsm&&m2.gsm?`${Math.abs(m.gsm-m2.gsm)} gsm apart, so the lighter side will pucker`:"they pull in different directions"}.${alt?` ${nameOf(alt)} takes that seam better.`:""}`]);
+  }
+  if(slv&&bod&&slv.gsm>250&&bod.gsm<90)
+    notes.push(["warn",`${slv.name} on the sleeves adds weight a ${bod.name} bodice can't carry — ${(bod.pairsWith||[]).slice(0,2).map(nameOf).join(" or ")||"organza"} there instead.`]);
   if(skt&&skt.drape>=5&&state.spec.weight==="heavy")
-    notes.push(["warn",`A ${skt.name} skirt reads light; your brief said a ${state.spec.weight} build. Kanchipuram or Banarasi will hold the flare.`]);
-  if(dup&&dup.gsm>200)notes.push(["warn",`${dup.name} is heavy for a dupatta — it will sit, not float. Chiffon or organza drapes better.`]);
-  if(bod&&skt&&bod.hex===skt.hex)notes.push(["note","Bodice and skirt are the same material — consider a contrast border to break the column."]);
+    notes.push(["warn",`A ${skt.name} skirt reads light; your brief said a ${state.spec.weight} build. ${CATALOG.filter(m=>m.cat==="fabric"&&m.drape<=2).slice(0,2).map(m=>m.name).join(" or ")} will hold the flare.`]);
+  if(dup&&dup.gsm>200)notes.push(["warn",`${dup.name} is heavy for a dupatta — it will sit, not float. A drape rating of 4–5 falls properly.`]);
+  // usedFor is what the material is actually cut for
+  for(const [z,m] of placed){
+    const zoneWord={bodice:"bodice",sleeves:"sleeve",skirt:"skirt",border:"border",dupatta:"dupatta"}[z];
+    if(m.cat==="fabric"&&m.usedFor&&!new RegExp(zoneWord,"i").test(m.usedFor)&&!/lehenga|saree|kurta/i.test(m.usedFor.split(",")[0]))
+      notes.push(["note",`${m.name} is stocked for ${m.usedFor} — on the ${z} it's a stretch, though nothing stops you.`]);
+  }
+  if(bor&&bor.cat==="fabric"&&bor.gsm<80)notes.push(["note",`A border wants body — ${bor.name} at ${bor.gsm} gsm won't anchor the hem.`]);
   const total=renderSpec();
-  if(state.budget&&total>state.budget)notes.push(["bad",`This combination is over the budget band — the ${costliest()} is the biggest line. Swap it to bring the total down.`]);
+  if(state.budget&&total>state.budget)notes.push(["bad",`Over the budget band — ${costliest()} is the biggest line. Swap it to bring the total down.`]);
   if(lastMat&&lastMat.cat==="embellish"&&lastZone==="skirt"&&state.spec.weight==="light")
     notes.push(["note",`${lastMat.name} all over the skirt fights the "light" brief — keep it to the border.`]);
-  if(!notes.length&&Object.keys(state.zones).length)
-    notes.push(["note",`Balanced so far. ${suggestion()}`]);
-  if(!Object.keys(state.zones).length)notes.push(["note","I'll speak up as you place materials — weight, clash and cost."]);
-  box.innerHTML=notes.map(([k,txt])=>`<div class="note ${k}">${txt}</div>`).join("");
+  if(!notes.length&&placed.length)notes.push(["note",`Balanced so far. ${suggestion()}`]);
+  if(!placed.length)notes.push(["note","I'll speak up as you place materials — weight, clash and cost."]);
+  box.innerHTML=notes.slice(0,4).map(([k,txt])=>`<div class="note ${k}">${txt}</div>`).join("");
 }
-function costliest(){let best=null,bc=0;ZONES.forEach(z=>{const m=state.zones[z.id]&&CATALOG.find(x=>x.id===state.zones[z.id]);if(m){const c=lineCost(z,m);if(c>bc){bc=c;best=m.name}}});return best||"top line"}
+function costliest(){let best=null,bc=0;ZONES.forEach(z=>{const m=state.zones[z.id]&&byId(state.zones[z.id]);if(m){const c=lineCost(z,m);if(c>bc){bc=c;best=m.name}}});return best||"the top line"}
 function suggestion(){
-  if(!state.zones.border)return"A hem border is still empty — gota patti or a temple border would anchor it.";
-  if(!state.zones.dupatta)return"The dupatta is bare — chiffon with kiran fringe is a classic finish.";
-  return"Try a version with the bodice in contrast — save this one first from Versions.";
+  const pick=(cat,tag)=>CATALOG.filter(m=>m.cat===cat&&m.tags?.some(t=>t.includes(tag)))[0]?.name;
+  if(!state.zones.border)return`A hem border is still empty — ${pick("trim","festive")||"gota patti"} would anchor it.`;
+  if(!state.zones.dupatta)return`The dupatta is bare — a sheer ground with ${pick("trim","edging")||"a woven edge"} is the classic finish.`;
+  return"Try a version with the bodice in contrast — this one is saved under Versions.";
 }
 
 /* ================================ try-on (cloth-v4 via server) ================================ */
@@ -606,12 +642,24 @@ pd.addEventListener("dragover",e=>{e.preventDefault();pd.classList.add("over")})
 pd.addEventListener("dragleave",()=>pd.classList.remove("over"));
 pd.addEventListener("drop",e=>{e.preventDefault();pd.classList.remove("over");e.dataTransfer.files[0]&&setPerson(e.dataTransfer.files[0])});
 
+/* a rasterized SVG has no origin, so /swatches/x.jpg would never load inside it —
+   every referenced swatch has to be inlined as data before the canvas draw */
+const _dataURI={};
+async function swatchDataURI(url){
+  if(_dataURI[url])return _dataURI[url];
+  const b=await(await fetch(url)).blob();
+  return _dataURI[url]=await new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result);f.readAsDataURL(b)});
+}
 async function garmentPNG(){
   /* export a clean garment, not the technical drawing: drop construction lines,
      thin the seam strokes — cloth-v4 reads the materials, not the blueprint */
   const svg=$("#garment").cloneNode(true);
   svg.querySelector("#constructionG")?.remove();
   svg.querySelectorAll(".zone").forEach(p=>{p.setAttribute("stroke","rgba(20,18,16,.35)");p.setAttribute("stroke-width",".6")});
+  for(const im of svg.querySelectorAll("image")){
+    const href=im.getAttribute("href")||im.getAttribute("xlink:href");
+    if(href&&!href.startsWith("data:"))im.setAttribute("href",await swatchDataURI(href));
+  }
   const xml=new XMLSerializer().serializeToString(svg);
   const img=new Image(); img.src="data:image/svg+xml;base64,"+btoa(unescape(encodeURIComponent(xml)));
   await ready(img);
