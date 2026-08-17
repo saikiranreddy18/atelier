@@ -145,6 +145,56 @@ createServer(async (req, res) => {
       return sendJson(res, 200, { ok: true });
     }
 
+    /* The workbench composition, rendered by YouCam as real garment photographs.
+       One task per version so the page can show each as it lands, and each is
+       cached on its own prompt — re-asking for a version already made is free. */
+    if (req.method === "POST" && url.pathname === "/api/versions") {
+      if (!hasKey()) return sendJson(res, 500, { error: "YOUCAM_API_KEY missing in .env.local" });
+      const body = JSON.parse(await readBody(req));
+      const base = String(body.prompt || "").trim();
+      if (!base) return sendJson(res, 400, { error: "prompt is required" });
+      const n = Math.min(Math.max(Number(body.count) || 4, 1), 6);
+
+      res.writeHead(200, { "Content-Type": "application/x-ndjson; charset=utf-8", "Cache-Control": "no-cache", "X-Accel-Buffering": "no" });
+      const emit = (o) => res.write(JSON.stringify(o) + "\n");
+
+      /* each version is a different camera/styling read of the SAME garment, so
+         the user is choosing between renders of their design, not new designs */
+      const ANGLES = [
+        "full length studio catalogue photograph, model standing straight, soft even light",
+        "full length editorial photograph, three-quarter turn, warm directional light",
+        "full length ghost-mannequin product photograph on a clean background",
+        "full length photograph with the skirt in gentle movement, soft daylight",
+        "full length photograph, slight low angle, rich shadow, luxury lookbook",
+        "full length flat studio photograph, symmetrical, catalogue reference",
+      ];
+      await Promise.all(Array.from({ length: n }, async (_, i) => {
+        const prompt = `${base}. ${ANGLES[i % ANGLES.length]}. Indian couture, accurate fabric texture, no text, no watermark.`;
+        const key = sha("ver|" + prompt);
+        const hit = cache[key];
+        if (hit?.ok && existsSync(join(RENDERS, hit.file)))
+          return emit({ stage: "version", i, url: "/renders/" + hit.file, units: 0, cached: true });
+        try {
+          const r = await runTask("text-to-image/youcam", {
+            model: "youcam-image-v2", prompt, negative_prompt: "text, watermark, logo, deformed, extra limbs, blurry",
+            size: "1104*1472", prompt_extend: true,
+          });
+          const bytes = await download(r.resultUrl); // URLs expire in 2h
+          await ensureDir(RENDERS);
+          const file = `v-${key.slice(0, 12)}.jpg`;
+          await writeFile(join(RENDERS, file), bytes);
+          cache[key] = { ok: true, file, taskId: r.taskId, at: new Date().toISOString() };
+          await saveCache();
+          await ledger({ at: new Date().toISOString(), feature: "text-to-image/youcam", taskId: r.taskId, key: `version:${i}`, observedDelta: 1, ok: true });
+          emit({ stage: "version", i, url: "/renders/" + file, units: 1, cached: false, taskId: r.taskId });
+        } catch (err) {
+          emit({ stage: "error", i, error: String(err.message || err) });
+        }
+      }));
+      emit({ stage: "done" });
+      return res.end();
+    }
+
     if (req.method === "POST" && url.pathname === "/api/tryon") {
       if (!hasKey()) return sendJson(res, 500, { error: "YOUCAM_API_KEY missing in .env.local" });
       const body = JSON.parse(await readBody(req));

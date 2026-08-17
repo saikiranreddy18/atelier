@@ -85,6 +85,26 @@ h1,h2,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
 .swatch.inTray{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
 .swatch .badge{position:absolute;top:6px;right:6px;background:var(--accent);color:#fff;font-size:10px;
   width:17px;height:17px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono)}
+.tryongrid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:900px}
+@media(max-width:760px){.tryongrid{grid-template-columns:1fr}}
+.chosenbox{border:1px solid var(--hair);background:#fffdf9;border-radius:3px;margin-top:6px;min-height:220px;
+  display:grid;place-items:center;color:var(--muted);font-size:12.5px;overflow:hidden}
+.chosenbox img{width:100%;display:block}
+#page-tryon #tryonBox{border:1px solid var(--hair);background:#fffdf9;border-radius:3px;padding:14px}
+.verbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:18px}
+.verbar .primary{border:1px solid var(--ink);background:var(--ink);color:var(--paper);border-radius:3px;padding:11px 18px;font-weight:600}
+.verbar .primary:hover:not(:disabled){background:var(--accent);border-color:var(--accent)}
+.verbar .primary:disabled{opacity:.45;cursor:not-allowed}
+#refineNote{flex:1;min-width:240px;border:1px solid var(--hair);background:#fffdf9;border-radius:3px;padding:11px 12px;font:13px var(--sans);color:var(--ink)}
+#refineNote:focus{outline:none;border-color:var(--ink)}
+.vergrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.vercard{border:1px solid var(--hair);border-radius:3px;background:#fffdf9;overflow:hidden;cursor:pointer;position:relative;transition:border-color .2s}
+.vercard:hover{border-color:var(--accent)}
+.vercard.sel{border-color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.vercard img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+.vercard .cap{padding:7px 10px;font-size:11.5px;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.vercard .cap b{color:var(--ink);font-weight:500}
+.vercard.pending{display:grid;place-items:center;aspect-ratio:3/4;background:var(--linen)}
 /* ---- material detail sheet ---- */
 .sheet{position:fixed;inset:0;z-index:80;background:rgba(20,18,16,.55);display:grid;place-items:center;padding:20px}
 .sheetcard{background:var(--paper);border:1px solid var(--hair);border-radius:4px;max-width:820px;width:100%;
@@ -282,6 +302,37 @@ h1,h2,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
     </div>
   </div>
 
+  <!-- ===== PAGE: versions ===== -->
+  <div class="page" id="page-versions">
+    <div class="pagehead">
+      <h2>Made up, four ways</h2>
+      <p>Your workbench composition, described to YouCam's image engine and rendered as real garment photographs. Pick the one closest to what you pictured — then refine it, or take it to the try-on.
+      <br><span class="mono" id="verPrompt"></span></p>
+    </div>
+    <div class="verbar">
+      <button class="primary" id="genVersions">Render 4 versions · 4u</button>
+      <input id="refineNote" placeholder="Refine in your words — “deeper red”, “heavier border”, “less work on top”…">
+      <span class="mono" id="verNote"></span>
+    </div>
+    <div class="vergrid" id="vergrid"></div>
+    <div class="pagefoot">
+      <span class="mono" id="verPick">nothing selected</span>
+      <button class="primary" id="toTryon" disabled>Take this one to the try-on →</button>
+    </div>
+  </div>
+
+  <!-- ===== PAGE: try-on ===== -->
+  <div class="page" id="page-tryon">
+    <div class="pagehead">
+      <h2>On you</h2>
+      <p>The version you chose, draped onto your photo by YouCam <span class="mono">cloth-v4</span>.</p>
+    </div>
+    <div class="tryongrid">
+      <div><span class="kick">Chosen version</span><div class="chosenbox" id="chosenBox">Pick a version first.</div></div>
+      <div id="tryonHolder"></div>
+    </div>
+  </div>
+
   <!-- ===== PAGE: workbench ===== -->
   <div class="page frame" id="page-workbench">
     <!-- left: the tray you filled -->
@@ -307,7 +358,7 @@ h1,h2,.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em}
               <stop offset="1" stop-color="#000" stop-opacity=".28"/>
             </linearGradient>
           </defs>
-          <g id="zoneG"></g><g id="constructionG" class="construction"></g></svg>
+          <g id="zoneG"></g><g id="workG" class="construction"></g><g id="constructionG" class="construction"></g></svg>
         <div id="zoneTip"></div>
       </div>
       <p class="canvashint" id="canvasHint">Drag a material from the tray onto a zone. Only that zone re-renders.</p>
@@ -533,22 +584,64 @@ function zonePath(z){
   return state.silhouette.border; /* the hem band of the chosen skirt */
 }
 const SVGNS="http://www.w3.org/2000/svg";
+/* Work motifs are drawn, not photographed: a product shot of a necklace on white
+   would tile its background across the cloth. Scattered shapes tinted with the
+   material's own colour stay inside the zone — beads on the cloth, nothing floating. */
+function workPattern(m){
+  const id="w-"+m.id;
+  if(document.getElementById(id))return`url(#${id})`;
+  const h=m.hex||"#c9962e"; let inner="", tile=9;
+  if(m.cat==="thread"){
+    /* a fine running stitch, not a rope */
+    inner=`<path d="M1 6.5L4 3.5M5 8L8 5" stroke="${h}" stroke-width=".85" stroke-linecap="round" opacity=".9"/>`;
+  }else if(m.cat==="trim"){
+    tile=8; inner=`<rect y="1.5" width="8" height="5" fill="${h}"/>
+      <path d="M0 1.5h8M0 6.5h8" stroke="rgba(255,255,255,.55)" stroke-width=".6"/>`;
+  }else{
+    /* kundan and beadwork: small, dense and offset, so it reads as handwork
+       across the cloth rather than a printed dot repeat */
+    inner=`<circle cx="2.2" cy="2.2" r="1.15" fill="${h}"/><circle cx="1.9" cy="1.9" r=".38" fill="rgba(255,255,255,.9)"/>
+           <circle cx="6.4" cy="4.6" r=".85" fill="${h}" opacity=".92"/><circle cx="6.2" cy="4.4" r=".3" fill="rgba(255,255,255,.85)"/>
+           <circle cx="3.6" cy="7.3" r=".95" fill="${h}" opacity=".88"/><circle cx="3.4" cy="7.1" r=".32" fill="rgba(255,255,255,.85)"/>
+           <circle cx="7.8" cy="8.1" r=".6" fill="${h}" opacity=".8"/>`;
+  }
+  document.getElementById("patDefs").insertAdjacentHTML("beforeend",
+    `<pattern id="${id}" width="${tile}" height="${tile}" patternUnits="userSpaceOnUse">${inner}</pattern>`);
+  return`url(#${id})`;
+}
 function drawGarment(){
-  const g=$("#zoneG"),c=$("#constructionG"); g.innerHTML=""; c.innerHTML="";
+  const g=$("#zoneG"),w0=$("#workG"),c=$("#constructionG"); g.innerHTML=""; w0.innerHTML=""; c.innerHTML="";
   /* back-to-front: skirt, its hem band, sleeves behind the body, choli, dupatta over all */
   ["skirt","border","sleeves","bodice","dupatta"].forEach(zid=>{
-    const mat=state.zones[zid]?CATALOG.find(m=>m.id===state.zones[zid]):null;
+    const z=state.zones[zid]||{}, d=zonePath(zid);
+    const fab=z.fabric?byId(z.fabric):null, work=z.work?byId(z.work):null;
     const p=document.createElementNS(SVGNS,"path");
-    p.setAttribute("d",zonePath(zid)); p.setAttribute("class","zone"); p.dataset.zone=zid;
-    p.setAttribute("fill",mat?patternFor(mat):"rgba(255,253,249,.9)");
+    p.setAttribute("d",d); p.setAttribute("class","zone"); p.dataset.zone=zid;
+    p.setAttribute("fill",fab?patternFor(fab):"rgba(255,253,249,.9)");
     p.setAttribute("stroke","#141210"); p.setAttribute("stroke-width","1.2");
-    if(zid==="dupatta")p.setAttribute("opacity",mat?".92":".55");
-    if(mat)p.setAttribute("data-mat",mat.id);
+    if(zid==="dupatta")p.setAttribute("opacity",fab?".92":".55");
+    if(fab)p.setAttribute("data-mat",fab.id);
     g.appendChild(p);
     /* cloth shading on top of the same shape — turns flat vector into fabric */
     const sh=document.createElementNS(SVGNS,"path");
-    sh.setAttribute("d",zonePath(zid)); sh.setAttribute("fill","url(#fold)");
-    sh.setAttribute("pointer-events","none"); c.appendChild(sh);
+    sh.setAttribute("d",d); sh.setAttribute("fill","url(#fold)");
+    sh.setAttribute("pointer-events","none"); w0.appendChild(sh);
+    /* the work sits ON the cloth, clipped to the same zone: threads and beads
+       scatter across the face, a trim runs along the edge as a trim actually does */
+    if(work){
+      const w=document.createElementNS(SVGNS,"path");
+      w.setAttribute("d",d); w.setAttribute("pointer-events","none");
+      if(work.cat==="trim"&&zid==="border"){
+        w.setAttribute("fill",workPattern(work)); // the hem band IS the trim
+      }else if(work.cat==="trim"){
+        w.setAttribute("fill","none"); w.setAttribute("stroke",workPattern(work));
+        w.setAttribute("stroke-width","5"); w.setAttribute("stroke-linejoin","round");
+      }else{
+        w.setAttribute("fill",workPattern(work));
+        w.setAttribute("opacity",work.cat==="thread"?".85":".95");
+      }
+      w0.appendChild(w);
+    }
   });
   /* seams a tailor cuts to, drawn over the cloth */
   c.insertAdjacentHTML("beforeend",
@@ -564,8 +657,9 @@ function wireZones(){
     p.addEventListener("mousemove",e=>{
       const r=$("#garmentWrap").getBoundingClientRect();
       tip.style.display="block"; tip.style.left=(e.clientX-r.left)+"px"; tip.style.top=(e.clientY-r.top)+"px";
-      const mat=state.zones[z.id]?CATALOG.find(m=>m.id===state.zones[z.id]).name:"empty";
-      tip.textContent=`${z.label} — ${mat}`;
+      const zs=state.zones[z.id]||{};
+      const parts=[zs.fabric&&nameOf(zs.fabric),zs.work&&("+ "+nameOf(zs.work))].filter(Boolean);
+      tip.textContent=`${z.label} — ${parts.join(" ")||"empty"}`;
       p.classList.add("hot");
     });
     p.addEventListener("mouseleave",()=>{tip.style.display="none";p.classList.remove("hot")});
@@ -576,7 +670,7 @@ function wireZones(){
    Splitting the stages into their own screens only works because of the tray:
    drag-and-drop needs a source and the garment on screen at once, so the
    catalog page fills the tray and the workbench drags from that.            */
-const PAGES=[["silhouette","Construction"],["materials","Catalog"],["workbench","Workbench"]];
+const PAGES=[["silhouette","Construction"],["materials","Catalog"],["workbench","Workbench"],["versions","Versions"],["tryon","Try-on"]];
 function buildStepper(){
   const s=$("#stepper"); s.innerHTML="";
   PAGES.forEach(([id,label],i)=>{
@@ -594,6 +688,8 @@ function goPage(id){
   buildStepper();
   if(id==="materials")buildRail();
   if(id==="workbench"){buildTray();drawGarment();renderSpec();critique()}
+  if(id==="versions"){$("#verPrompt").textContent=describeDesign()}
+  if(id==="tryon"&&!$("#page-tryon #tryonBox"))$("#tryonHolder").appendChild($("#tryonBox"));
   window.scrollTo(0,0);
 }
 
@@ -646,7 +742,12 @@ let activeCat="fabric";
 /* one swatch element, used by both the catalog grid and the tray */
 function swatchEl(m,draggableOnly){
   const el=document.createElement("div"); el.className="swatch"+(inTray(m.id)?" inTray":""); el.draggable=true; el.dataset.id=m.id;
-  const tex=m.thumb?`background-image:url(${m.thumb});background-size:cover;background-position:center`:texCSS(m);
+  /* cloth is cropped edge to edge like a real swatch; a bead, button or trim is a
+     single object, so show all of it rather than a crop of its white background */
+  const fit=m.cat==="fabric"?"cover":"contain";
+  const tex=m.thumb
+    ?`background-image:url(${m.thumb});background-size:${fit};background-repeat:no-repeat;background-position:center;background-color:#fffdf9`
+    :texCSS(m);
   el.innerHTML=`<div class="tex" style="${tex}"></div><div class="nm">${m.name}</div>
     <div class="pr">₹${m.price}${m.cat==="fabric"||m.cat==="trim"?"/m":""}</div>
     ${inTray(m.id)&&!draggableOnly?'<span class="badge">✓</span>':""}
@@ -686,9 +787,15 @@ document.addEventListener("drop",e=>{
   const id=e.dataTransfer.getData("text/plain"); const m=CATALOG.find(x=>x.id===id); if(!m)return;
   placeMaterial(z.dataset.zone,m);
 });
+/* A zone is layered the way a real garment is: cloth first, then the work that
+   is stitched onto it. Beads and zari are never the garment — they sit on the
+   cloth, so they go to .work and leave the fabric underneath showing.        */
 function placeMaterial(zoneId,m){
   state.history.push(JSON.stringify(state.zones));
-  state.zones[zoneId]=m.id;
+  const z=state.zones[zoneId]||(state.zones[zoneId]={fabric:null,work:null});
+  if(m.cat==="fabric")z.fabric=(z.fabric===m.id)?null:m.id;
+  else z.work=(z.work===m.id)?null:m.id;
+  if(!z.fabric&&!z.work)delete state.zones[zoneId];
   snapshotVersion();
   drawGarment();
   const p=document.querySelector(`.zone[data-zone="${zoneId}"]`);
@@ -721,11 +828,20 @@ function lineCost(z,m){
 function renderSpec(){
   const t=$("#specTable"); t.innerHTML=""; let total=0;
   ZONES.forEach(z=>{
-    const mid=state.zones[z.id];
-    const m=mid?CATALOG.find(x=>x.id===mid):null;
-    const cost=m?lineCost(z,m):0; total+=cost;
-    t.insertAdjacentHTML("beforeend",`<tr><td><span class="zn">${z.label}</span><br>${m?m.name:"<span style='color:var(--muted)'>—</span>"}</td>
-      <td>${m?`${m.cat==="fabric"?z.m.toFixed(1)+" m · ":""}₹${cost.toLocaleString("en-IN")}`:""}</td></tr>`);
+    const zs=state.zones[z.id]||{};
+    const rows=[["fabric",zs.fabric],["work",zs.work]].filter(([,id])=>id);
+    if(!rows.length){
+      t.insertAdjacentHTML("beforeend",`<tr><td><span class="zn">${z.label}</span><br><span style="color:var(--muted)">—</span></td><td></td></tr>`);
+      return;
+    }
+    rows.forEach(([kind,id],i)=>{
+      const m=byId(id); if(!m)return;
+      const cost=lineCost(z,m); total+=cost;
+      const qty=m.cat==="fabric"?z.m.toFixed(1)+" m · ":m.cat==="trim"?(z.id==="border"?z.m:1.5)+" m · ":"";
+      t.insertAdjacentHTML("beforeend",
+        `<tr><td>${i===0?`<span class="zn">${z.label}</span><br>`:`<span class="zn" style="opacity:.55">on the cloth</span><br>`}${m.name}</td>
+         <td>${qty}₹${cost.toLocaleString("en-IN")}</td></tr>`);
+    });
   });
   $("#costTotal").textContent="₹"+total.toLocaleString("en-IN");
   const f=$("#budgetFlag");
@@ -740,9 +856,10 @@ const nameOf=id=>byId(id)?.name||id;
    co-designer can never invent a material or a reason that isn't in the data */
 function critique(lastZone,lastMat){
   const box=$("#critique"); const notes=[];
-  const get=z=>state.zones[z]?byId(state.zones[z]):null;
+  const get=z=>state.zones[z]?.fabric?byId(state.zones[z].fabric):null;
+  const getWork=z=>state.zones[z]?.work?byId(state.zones[z].work):null;
   const bod=get("bodice"),slv=get("sleeves"),skt=get("skirt"),dup=get("dupatta"),bor=get("border");
-  const placed=Object.entries(state.zones).map(([z,id])=>[z,byId(id)]).filter(([,m])=>m);
+  const placed=Object.entries(state.zones).map(([z,v])=>[z,v.fabric&&byId(v.fabric)]).filter(([,m])=>m);
 
   /* avoidWith is a seam-level judgement, so only zones actually stitched together
      are compared. A heavy skirt under a floating dupatta is the whole point of a
@@ -774,13 +891,90 @@ function critique(lastZone,lastMat){
   if(!placed.length)notes.push(["note","I'll speak up as you place materials — weight, clash and cost."]);
   box.innerHTML=notes.slice(0,4).map(([k,txt])=>`<div class="note ${k}">${txt}</div>`).join("");
 }
-function costliest(){let best=null,bc=0;ZONES.forEach(z=>{const m=state.zones[z.id]&&byId(state.zones[z.id]);if(m){const c=lineCost(z,m);if(c>bc){bc=c;best=m.name}}});return best||"the top line"}
+function costliest(){let best=null,bc=0;ZONES.forEach(z=>{const m=state.zones[z.id]?.fabric&&byId(state.zones[z.id].fabric);if(m){const c=lineCost(z,m);if(c>bc){bc=c;best=m.name}}});return best||"the top line"}
 function suggestion(){
   const pick=(cat,tag)=>CATALOG.filter(m=>m.cat===cat&&m.tags?.some(t=>t.includes(tag)))[0]?.name;
   if(!state.zones.border)return`A hem border is still empty — ${pick("trim","festive")||"gota patti"} would anchor it.`;
   if(!state.zones.dupatta)return`The dupatta is bare — a sheer ground with ${pick("trim","edging")||"a woven edge"} is the classic finish.`;
   return"Try a version with the bodice in contrast — this one is saved under Versions.";
 }
+
+
+/* ================================ versions (YouCam renders) ================================
+   The workbench holds the design; this turns it into sentences the image engine
+   can render, so what comes back is the composition the user built — not a fresh
+   idea. Each version is one task, so they appear as they land.               */
+function describeDesign(){
+  const s=state.spec||{}, parts=[];
+  const sil=state.silhouette?.name?state.silhouette.name.toLowerCase()+" ":"";
+  parts.push(`A ${sil}${s.primaryColour||""} ${s.garment||"lehenga"}`.replace(/\s+/g," ").trim());
+  if(s.occasion)parts.push(`for an Indian ${s.occasion}`);
+  const bits=[];
+  ZONES.forEach(z=>{
+    const zs=state.zones[z.id]||{}; const f=zs.fabric&&byId(zs.fabric), w=zs.work&&byId(zs.work);
+    if(!f&&!w)return;
+    const label=z.id==="border"?"hem border":z.label.toLowerCase().replace(" / lower","");
+    if(f&&w)bits.push(`${label} in ${f.name} with ${w.name} worked over it`);
+    else if(f)bits.push(`${label} in ${f.name}`);
+    else bits.push(`${label} finished with ${w.name}`);
+  });
+  if(bits.length)parts.push("— "+bits.join(", "));
+  if(s.weight)parts.push(`. A ${s.weight} build`);
+  const note=$("#refineNote")?.value.trim();
+  if(note)parts.push(`. ${note}`);
+  return parts.join(" ").replace(/\s+\./g,".").slice(0,600);
+}
+const NL=String.fromCharCode(10);
+let versions=[], chosen=null;
+function renderVerGrid(){
+  const g=$("#vergrid"); g.innerHTML="";
+  versions.forEach((v,i)=>{
+    const el=document.createElement("div");
+    el.className="vercard"+(chosen===i?" sel":"")+(v.url?"":" pending");
+    el.innerHTML=v.url
+      ? `<img src="${v.url}" alt="Version ${i+1}"><div class="cap"><b>Version ${i+1}</b><span>${v.cached?"cache · 0u":v.units+"u"}</span></div>`
+      : v.error?`<div style="padding:14px;font-size:12px;color:var(--bad)">${v.error}</div>`
+              :`<div class="weave"></div>`;
+    if(v.url)el.onclick=()=>{chosen=i;renderVerGrid();
+      $("#verPick").textContent=`version ${i+1} selected`;
+      $("#toTryon").disabled=false;
+      $("#chosenBox").innerHTML=`<img src="${v.url}" alt="Chosen version">`;};
+    g.appendChild(el);
+  });
+}
+async function generateVersions(){
+  if(state.busy)return; state.busy=true;
+  const btn=$("#genVersions"); btn.disabled=true; btn.textContent="Rendering…";
+  const prompt=describeDesign();
+  $("#verPrompt").textContent=prompt;
+  versions=Array.from({length:4},()=>({})); chosen=null;
+  $("#toTryon").disabled=true; $("#verPick").textContent="nothing selected";
+  renderVerGrid();
+  let spent=0;
+  try{
+    const res=await fetch("/api/versions",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({prompt,count:4})});
+    if(!res.ok){const j=await res.json().catch(()=>({}));throw new Error(j.error||res.status)}
+    const rd=res.body.getReader(),dec=new TextDecoder();let buf="";
+    for(;;){
+      const{done,value}=await rd.read(); if(done)break;
+      buf+=dec.decode(value,{stream:true});
+      let i; while((i=buf.indexOf(NL))>=0){
+        const line=buf.slice(0,i).trim(); buf=buf.slice(i+1); if(!line)continue;
+        const m=JSON.parse(line);
+        if(m.stage==="version"){versions[m.i]={url:m.url,units:m.units,cached:m.cached};spent+=m.units||0;renderVerGrid()}
+        if(m.stage==="error"){versions[m.i]={error:m.error};renderVerGrid()}
+      }
+    }
+    $("#verNote").textContent=`${spent}u spent · balance updating`;
+    loadBalance();
+  }catch(e){$("#verNote").textContent=e.message}
+  btn.disabled=false; btn.textContent="Render 4 versions · 4u";
+  state.busy=false;
+}
+$("#genVersions").onclick=generateVersions;
+$("#refineNote").addEventListener("keydown",e=>{if(e.key==="Enter")generateVersions()});
+$("#toTryon").onclick=()=>goPage("tryon");
 
 /* ================================ try-on (cloth-v4 via server) ================================ */
 async function loadBalance(){try{const j=await(await fetch("/api/credits")).json();$("#bal").textContent=j.balance??"—"}catch{$("#bal").textContent="—"}}
@@ -841,7 +1035,11 @@ $("#drapeGo").onclick=async()=>{
   $("#drapeGo").disabled=true; $("#drapeWeave").classList.remove("hide");
   $("#drapeGo").textContent="At the loom — cloth-v4 running…";
   try{
-    const garment=await garmentPNG();
+    /* prefer the version the user actually chose — cloth-v4 gets a photographic
+       garment rather than the flat workbench drawing */
+    const garment=(chosen!=null&&versions[chosen]?.url)
+      ? await swatchDataURI(versions[chosen].url)
+      : await garmentPNG();
     const r=await fetch("/api/tryon",{method:"POST",headers:{"Content-Type":"application/json"},
       body:JSON.stringify({garmentBase64:garment,personBase64:state.person,category:"full_body"})});
     const j=await r.json();
@@ -863,7 +1061,7 @@ $("#drapeGo").onclick=async()=>{
 $("#exportBtn").onclick=async()=>{
   const s=state.spec; const total=renderSpec();
   const rows=ZONES.map(z=>{
-    const m=state.zones[z.id]&&CATALOG.find(x=>x.id===state.zones[z.id]);
+    const zs=state.zones[z.id]||{}; const m=zs.fabric&&byId(zs.fabric); const wk=zs.work&&byId(zs.work);
     return`<tr><td>${z.label}</td><td>${m?m.name:"—"}</td><td>${m?m.cat:""}</td>
       <td class="mono">${m&&(m.cat==="fabric")?z.m.toFixed(1)+" m":m&&m.cat==="trim"?(z.id==="border"?z.m:1.5)+" m":m?"1 application":""}</td>
       <td class="mono">${m?"₹"+lineCost(z,m).toLocaleString("en-IN"):""}</td></tr>`;
